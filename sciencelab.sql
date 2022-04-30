@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET UTF8MB4 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
@@ -72,7 +72,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Laboratories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Laboratories` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `exp_capacity` INT NOT NULL,
   `labs_size_id` INT NOT NULL,
@@ -83,13 +83,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Laboratories` (
   CONSTRAINT `fk_Laboratories_Labs_Size1`
     FOREIGN KEY (`labs_size_id`)
     REFERENCES `mydb`.`Labs_Size` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Laboratories_Cities1`
     FOREIGN KEY (`city_id`)
     REFERENCES `mydb`.`Cities` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -105,8 +105,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Costs` (
   CONSTRAINT `fk_Costs_Types1`
     FOREIGN KEY (`type_id`)
     REFERENCES `mydb`.`Types` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -122,8 +122,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Orders` (
   CONSTRAINT `fk_Orders_Costs1`
     FOREIGN KEY (`cost_id`)
     REFERENCES `mydb`.`Costs` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -147,28 +147,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Experiments` (
   CONSTRAINT `fk_Experiments_Status`
     FOREIGN KEY (`status_id`)
     REFERENCES `mydb`.`Status` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Experiments_Types1`
     FOREIGN KEY (`types_id`)
     REFERENCES `mydb`.`Types` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Experiments_Financiations1`
     FOREIGN KEY (`financiations_id`)
     REFERENCES `mydb`.`Financiations` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Experiments_Laboratories1`
     FOREIGN KEY (`lab_id`)
     REFERENCES `mydb`.`Laboratories` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Experiments_Orders1`
     FOREIGN KEY (`order_id`)
     REFERENCES `mydb`.`Orders` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Phone_Numbers` (
   CONSTRAINT `fk_Phone_Numbers_Laboratories1`
     FOREIGN KEY (`lab_id`)
     REFERENCES `mydb`.`Laboratories` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -212,8 +212,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Employees` (
   CONSTRAINT `fk_Employees_Positions1`
     FOREIGN KEY (`position_id`)
     REFERENCES `mydb`.`Positions` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -235,11 +235,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Weekly_Shifts` (
   CONSTRAINT `fk_Laboratories_has_Employees_Employees1`
     FOREIGN KEY (`employee_id`)
     REFERENCES `mydb`.`Employees` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
