@@ -1,26 +1,30 @@
-USE mydb;
+USE gabriel_micillo;
 
 INSERT INTO Status (exp_status)
 VALUES ("not started"),
 ("on process"),
 ("blocked"),
 ("finished");
+
 INSERT INTO Types (type_name)
 VALUES ("Chemistry"),
 ("Physics"),
 ("Health"),
 ("Technology"),
 ("Biology");
+
 INSERT INTO Financiations (fin_origin)
 VALUES ("State"),
 ("Private entity"),
 ("Mixed"),
 ("This laboratory");
+
 INSERT INTO Labs_size (lab_size, square_meters)
 VALUES ("Small", 50),
 ("Medium", 100),
 ("Extra", 150),
 ("Big", 200);
+
 INSERT INTO Cities (city_name)
 VALUES ("Rosario"),
 ("Chicago"),
@@ -83,72 +87,3 @@ VALUES ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Em
 ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 2),
 ((SELECT id FROM Laboratories WHERE name ="Guemes"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 9),
 ((SELECT id FROM Laboratories WHERE name ="Tesla"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 4);
-
-UPDATE Employees
-SET first_name = 'Marcos', last_name= 'Battaglia'
-WHERE id = 2;
-
-UPDATE Employees
-SET first_name = 'Pedro', last_name= 'Portillo'
-WHERE id = 3;
-
-UPDATE Phone_Numbers
-SET phone_number = 84512
-WHERE id = 1;
-
-UPDATE Phone_Numbers
-SET phone_number = 54812
-WHERE id = 2;
-
-UPDATE Phone_Numbers
-SET phone_number = 98521
-WHERE id = 3;
-
-UPDATE Cities
-SET city_name = 'Santa Fe'
-WHERE id = 1;
-
-UPDATE Cities
-SET city_name = 'Catamarca'
-WHERE id = 2;
-
-DELETE FROM Phone_Numbers WHERE phone_number=21564;
-DELETE FROM Phone_Numbers WHERE phone_number=87123;
-DELETE FROM Phone_Numbers WHERE phone_number=21742;
-DELETE FROM Phone_Numbers WHERE phone_number=14951;
-
-DELETE FROM Weekly_Shifts WHERE weekly_shifts=9;
-DELETE FROM Weekly_Shifts WHERE weekly_shifts=5;
-
-ALTER TABLE Employees
-ADD email varchar(45);
-ALTER TABLE Cities
-ADD country varchar(45);
-ALTER TABLE Positions
-ADD wage INT;
-ALTER TABLE Laboratories
-ADD employees_quantity INT;
-
-SELECT *
-FROM Employees
-INNER JOIN Positions
-ON Employees.position_id = Positions.id;
-
-SELECT *
-FROM Costs
-LEFT JOIN Orders
-ON Costs.id = Orders.cost_id;
-
-SELECT *
-FROM Experiments
-RIGHT JOIN Financiations
-ON Experiments.financiations_id = Financiations.id;
-
-SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id;
-
-SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id;
-
-SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id HAVING AVG(cost_per_hour) > 90;
