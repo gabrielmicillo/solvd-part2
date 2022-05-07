@@ -51,9 +51,9 @@ INNER JOIN Positions
 ON Employees.position_id = Positions.id;
 
 SELECT *
-FROM Costs
+FROM Experiment_Types
 LEFT JOIN Orders
-ON Costs.id = Orders.cost_id;
+ON Experiment_Types.id = Orders.experiment_id;
 
 SELECT *
 FROM Experiments
@@ -61,10 +61,10 @@ RIGHT JOIN Financiations
 ON Experiments.financiations_id = Financiations.id;
 
 SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id;
+FROM Experiment_Types GROUP BY id;
 
 SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id;
+FROM Experiment_Types GROUP BY id;
 
 SELECT AVG(cost_per_hour), id	
-FROM Costs GROUP BY id HAVING AVG(cost_per_hour) > 90;
+FROM Experiment_Types GROUP BY id HAVING AVG(cost_per_hour) > 90;

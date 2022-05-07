@@ -8,9 +8,10 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Status` (
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Types` (
+CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Experiment_Types` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type_name` VARCHAR(45) NOT NULL,
+  `cost_per_hour` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -62,51 +63,22 @@ ENGINE = InnoDB;
 
 
 
-CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Costs` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `cost_per_hour` INT NOT NULL,
-  `type_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `type_id`),
-  CONSTRAINT `fk_Costs_Types1`
-    FOREIGN KEY (`type_id`)
-    REFERENCES `gabriel_micillo`.`Types` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
-
-CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Orders` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `hours_required` INT NOT NULL,
-  `cost_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `cost_id`),
-  CONSTRAINT `fk_Orders_Costs1`
-    FOREIGN KEY (`cost_id`)
-    REFERENCES `gabriel_micillo`.`Costs` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
-
 CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Experiments` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `test_tube_usage` INT NOT NULL,
   `status_id` INT NOT NULL,
-  `types_id` INT NOT NULL,
+  `experiment_types_id` INT NOT NULL,
   `financiations_id` INT NOT NULL,
   `lab_id` INT NOT NULL,
-  `order_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `status_id`, `types_id`, `financiations_id`, `lab_id`, `order_id`),
+  PRIMARY KEY (`id`, `status_id`, `experiment_types_id`, `financiations_id`, `lab_id`),
   CONSTRAINT `fk_Experiments_Status`
     FOREIGN KEY (`status_id`)
     REFERENCES `gabriel_micillo`.`Status` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Experiments_Types1`
-    FOREIGN KEY (`types_id`)
-    REFERENCES `gabriel_micillo`.`Types` (`id`)
+  CONSTRAINT `fk_Experiments_Experiment_Types1`
+    FOREIGN KEY (`experiment_types_id`)
+    REFERENCES `gabriel_micillo`.`Experiment_Types` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Experiments_Financiations1`
@@ -118,10 +90,28 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Experiments` (
     FOREIGN KEY (`lab_id`)
     REFERENCES `gabriel_micillo`.`Laboratories` (`id`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Clients` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Orders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `hours_required` INT NOT NULL,
+  `experiment_id` INT NOT NULL,
+  `client_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `experiment_id`, `client_id`),
+    FOREIGN KEY (`experiment_id`)
+    REFERENCES `gabriel_micillo`.`Experiments` (`id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Experiments_Orders1`
-    FOREIGN KEY (`order_id`)
-    REFERENCES `gabriel_micillo`.`Orders` (`id`)
+    FOREIGN KEY (`client_id`)
+    REFERENCES `gabriel_micillo`.`Clients` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -154,10 +144,16 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Employees` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `position_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `position_id`),
+  `experiment_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `position_id`, `experiment_id`),
   CONSTRAINT `fk_Employees_Positions1`
     FOREIGN KEY (`position_id`)
     REFERENCES `gabriel_micillo`.`Positions` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Employees_Experiments1`
+    FOREIGN KEY (`experiment_id`)
+    REFERENCES `gabriel_micillo`.`Experiments` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -181,3 +177,18 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Weekly_Shifts` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- Employee´s competence is a number on a scale between 0 and 9 --
+CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Employees_Competences` (
+  `experiment_types_id` INT NOT NULL,
+  `employee_id` INT NOT NULL,
+  `employee_competence` BIGINT(1) NOT NULL,
+  PRIMARY KEY (`experiment_types_id`, `employee_id`),
+    FOREIGN KEY (`experiment_types_id`)
+    REFERENCES `gabriel_micillo`.`Experiment_Types` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `gabriel_micillo`.`Employees` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;

@@ -6,12 +6,12 @@ VALUES ("not started"),
 ("blocked"),
 ("finished");
 
-INSERT INTO Types (type_name)
-VALUES ("Chemistry"),
-("Physics"),
-("Health"),
-("Technology"),
-("Biology");
+INSERT INTO Experiment_Types (type_name, cost_per_hour)
+VALUES ("Chemistry", 50),
+("Physics", 100),
+("Health", 75),
+("Technology", 80),
+("Biology", 25);
 
 INSERT INTO Financiations (fin_origin)
 VALUES ("State"),
@@ -36,25 +36,25 @@ VALUES ("Perrando", 150, (SELECT id FROM Labs_Size WHERE lab_size ="Big"), (SELE
 ("Sarmiento", 85, (SELECT id FROM Labs_Size WHERE lab_size ="Extra"), (SELECT id FROM Cities WHERE city_name ="Chicago")),
 ("Tesla", 35, (SELECT id FROM Labs_Size WHERE lab_size ="Small"), (SELECT id FROM Cities WHERE city_name ="Cordoba"));
 
-INSERT INTO Costs (cost_per_hour, type_id)
-VALUES (50, (SELECT id FROM Types WHERE type_name ="Chemistry")),
-(100, (SELECT id FROM Types WHERE type_name ="Physics")),
-(75, (SELECT id FROM Types WHERE type_name ="Health")),
-(80, (SELECT id FROM Types WHERE type_name ="Technology")),
-(25, (SELECT id FROM Types WHERE type_name ="Biology"));
+INSERT INTO Experiments (test_tube_usage, status_id, experiment_types_id, financiations_id, lab_id)
+VALUES (10, (SELECT id FROM Status WHERE exp_status = "on process"), (SELECT id FROM Experiment_Types WHERE type_name = "Chemistry"), (SELECT id FROM Financiations WHERE fin_origin = "State"), (SELECT id FROM Laboratories WHERE name = "Perrando")),
+(15, (SELECT id FROM Status WHERE exp_status = "not started"), (SELECT id FROM Experiment_Types WHERE type_name = "Health"), (SELECT id FROM Financiations WHERE fin_origin = "Private entity"), (SELECT id FROM Laboratories WHERE name = "Tesla")),
+(18, (SELECT id FROM Status WHERE exp_status = "blocked"), (SELECT id FROM Experiment_Types WHERE type_name = "Technology"), (SELECT id FROM Financiations WHERE fin_origin = "Mixed"), (SELECT id FROM Laboratories WHERE name = "Sarmiento")),
+(20, (SELECT id FROM Status WHERE exp_status = "finished"), (SELECT id FROM Experiment_Types WHERE type_name = "Physics"), (SELECT id FROM Financiations WHERE fin_origin = "This laboratory"), (SELECT id FROM Laboratories WHERE name = "Guemes"));
 
-INSERT INTO Orders (hours_required, cost_id)
-VALUES (15, (SELECT id FROM Costs WHERE cost_per_hour = 50)),
-(20, (SELECT id FROM Costs WHERE cost_per_hour = 100)),
-(50, (SELECT id FROM Costs WHERE cost_per_hour = 75)),
-(35, (SELECT id FROM Costs WHERE cost_per_hour = 80)),
-(10, (SELECT id FROM Costs WHERE cost_per_hour = 25));
+INSERT INTO Clients (first_name, last_name)
+VALUES ("Jorge", "Valdano"),
+("Marcos", "Lanzelotta"),
+("Dennis", "Maguire"),
+("Appa", "Nahametilakh"),
+("Toko", "Ekambi");
 
-INSERT INTO Experiments (test_tube_usage, status_id, types_id, financiations_id, lab_id, order_id)
-VALUES (10, (SELECT id FROM Status WHERE exp_status = "on process"), (SELECT id FROM Types WHERE type_name = "Chemistry"), (SELECT id FROM Financiations WHERE fin_origin = "State"), (SELECT id FROM Laboratories WHERE name = "Perrando"), (SELECT id FROM Orders WHERE hours_required = 15)),
-(15, (SELECT id FROM Status WHERE exp_status = "not started"), (SELECT id FROM Types WHERE type_name = "Health"), (SELECT id FROM Financiations WHERE fin_origin = "Private entity"), (SELECT id FROM Laboratories WHERE name = "Tesla"), (SELECT id FROM Orders WHERE hours_required = 20)),
-(18, (SELECT id FROM Status WHERE exp_status = "blocked"), (SELECT id FROM Types WHERE type_name = "Technology"), (SELECT id FROM Financiations WHERE fin_origin = "Mixed"), (SELECT id FROM Laboratories WHERE name = "Sarmiento"), (SELECT id FROM Orders WHERE hours_required = 35)),
-(20, (SELECT id FROM Status WHERE exp_status = "finished"), (SELECT id FROM Types WHERE type_name = "Physics"), (SELECT id FROM Financiations WHERE fin_origin = "This laboratory"), (SELECT id FROM Laboratories WHERE name = "Guemes"), (SELECT id FROM Orders WHERE hours_required = 50));
+INSERT INTO Orders (hours_required, experiment_id, client_id)
+VALUES (15, (SELECT id FROM Experiments WHERE test_tube_usage = 10), (SELECT id FROM Clients WHERE first_name = "Jorge")),
+(20, (SELECT id FROM Experiments WHERE test_tube_usage = 20), (SELECT id FROM Clients WHERE first_name = "Toko")),
+(50, (SELECT id FROM Experiments WHERE test_tube_usage = 20), (SELECT id FROM Clients WHERE first_name = "Marcos")),
+(35, (SELECT id FROM Experiments WHERE test_tube_usage = 18), (SELECT id FROM Clients WHERE first_name = "Appa")),
+(10, (SELECT id FROM Experiments WHERE test_tube_usage = 15), (SELECT id FROM Clients WHERE first_name = "Dennis"));
 
 INSERT INTO Phone_Numbers (phone_number, lab_id)
 VALUES (45678, (SELECT id FROM Laboratories WHERE name = "Perrando")),
@@ -72,10 +72,10 @@ VALUES ("Scientist"),
 ("Receptionist"),
 ("Lab_assistant");
 
-INSERT INTO Employees (first_name, last_name, position_id)
-VALUES ("Jorge", "Vega", (SELECT id FROM positions WHERE position_name ="Scientist")),
-("Pablo", "Santos", (SELECT id FROM positions WHERE position_name ="Lab_assistant")),
-("Enrique", "Pereyra", (SELECT id FROM positions WHERE position_name ="Scientist"));
+INSERT INTO Employees (first_name, last_name, position_id, experiment_id)
+VALUES ("Jorge", "Vega", (SELECT id FROM positions WHERE position_name ="Scientist"), (SELECT id FROM experiments WHERE test_tube_usage =15)),
+("Pablo", "Santos", (SELECT id FROM positions WHERE position_name ="Lab_assistant"), (SELECT id FROM experiments WHERE test_tube_usage =18)),
+("Enrique", "Pereyra", (SELECT id FROM positions WHERE position_name ="Scientist"), (SELECT id FROM experiments WHERE test_tube_usage =20));
 
 INSERT INTO Weekly_Shifts (lab_id, employee_id, weekly_shifts)
 VALUES ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Employees WHERE first_name ="Jorge"), 5),
@@ -87,3 +87,14 @@ VALUES ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Em
 ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 2),
 ((SELECT id FROM Laboratories WHERE name ="Guemes"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 9),
 ((SELECT id FROM Laboratories WHERE name ="Tesla"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 4);
+
+INSERT INTO Employees_Competences (experiment_types_id, employee_id, employee_competence)
+VALUES ((SELECT id FROM Experiment_Types WHERE type_name ="Chemistry"), (SELECT id FROM Employees WHERE first_name ="Jorge"), 7),
+((SELECT id FROM Experiment_Types WHERE type_name ="Physics"), (SELECT id FROM Employees WHERE first_name ="Jorge"), 8),
+((SELECT id FROM Experiment_Types WHERE type_name ="Health"), (SELECT id FROM Employees WHERE first_name ="Jorge"), 5),
+((SELECT id FROM Experiment_Types WHERE type_name ="Chemistry"), (SELECT id FROM Employees WHERE first_name ="Pablo"), 4),
+((SELECT id FROM Experiment_Types WHERE type_name ="Technology"), (SELECT id FROM Employees WHERE first_name ="Pablo"), 6),
+((SELECT id FROM Experiment_Types WHERE type_name ="Physics"), (SELECT id FROM Employees WHERE first_name ="Pablo"), 2),
+((SELECT id FROM Experiment_Types WHERE type_name ="Chemistry"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 8),
+((SELECT id FROM Experiment_Types WHERE type_name ="Technology"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 1),
+((SELECT id FROM Experiment_Types WHERE type_name ="Biology"), (SELECT id FROM Employees WHERE first_name ="Enrique"), 5);
