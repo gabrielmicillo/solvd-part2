@@ -25,7 +25,7 @@ VALUES ("Small", 50),
 ("Extra", 150),
 ("Big", 200);
 
-INSERT INTO Cities (city_name)
+INSERT INTO cities (city_name)
 VALUES ("Rosario"),
 ("Chicago"),
 ("Cordoba");

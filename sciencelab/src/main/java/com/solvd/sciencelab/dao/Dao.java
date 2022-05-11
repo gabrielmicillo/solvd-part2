@@ -1,17 +1,16 @@
 package com.solvd.sciencelab.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> get(long id);
+    T select(long id);
 
-    List<T> getAll();
+    List<T> selectAll();
 
-    void save(T t);
+    void insert(T t);
 
-    void update(T t, String[] params);
+    void update(T t, int id);
 
     void delete(T t);
 }

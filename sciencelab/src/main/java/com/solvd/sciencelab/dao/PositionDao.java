@@ -1,6 +1,8 @@
 package com.solvd.sciencelab.dao;
 
-import com.solvd.sciencelab.City;
+import com.solvd.sciencelab.Laboratory;
+import com.solvd.sciencelab.PhoneNumber;
+import com.solvd.sciencelab.Position;
 import com.solvd.sciencelab.dao.conection.Conection;
 
 import java.sql.Connection;
@@ -10,34 +12,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityDao implements Dao<City>{
-
+public class PositionDao implements Dao<Position>{
     @Override
-    public City select(long id) {
-        String query = "SELECT id, city_name FROM cities WHERE id = " + id;
-        City city;
+    public Position select(long id) {
+        String query = "SELECT id, position_name FROM Positions WHERE id = " + id;
+        Position position;
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
-            int cityId = resultSet.getInt("id");
-            String cityName = resultSet.getString("city_name");
+            int positionId = resultSet.getInt("id");
+            String positionName = resultSet.getString("position_name");
 
-            city = new City(cityId, cityName);
+            position = new Position(positionId, positionName);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return city;
+        return position;
     }
 
     @Override
-    public List<City> selectAll() {
-        String query = "SELECT id, city_name FROM careers";
-        List<City> cities = new ArrayList<>();
-        City city;
+    public List<Position> selectAll(){
+        String query = "SELECT id, position_name FROM Positions";
+        Position position;
+        List<Position> positions = new ArrayList<>();
 
         try {
             Connection connection = Conection.getConnection();
@@ -45,27 +46,27 @@ public class CityDao implements Dao<City>{
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int cityId = resultSet.getInt("id");
-                String cityName = resultSet.getString("city_name");
+                int positionId = resultSet.getInt("id");
+                String positionName = resultSet.getString("position_name");
 
-                city = new City(cityId, cityName);
-                cities.add(city);
+                position = new Position(positionId, positionName);
+                positions.add(position);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return cities;
+        return positions;
     }
 
     @Override
-    public void insert(City city) {
-        String query = "INSERT INTO cities (city_name) VALUES (?)";
+    public void insert(Position position) {
+        String query = "INSERT INTO Positions (position_name) VALUES (?)";
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, city.getCityName());
+            statement.setString(1, position.getPositionName());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,14 +74,14 @@ public class CityDao implements Dao<City>{
     }
 
     @Override
-    public void update(City city, int id) {
-        String query = "UPDATE cities SET city_name = ? WHERE id = " + id;
+    public void update(Position position, int id) {
+        String query = "UPDATE Positions SET position_name = ? WHERE id = " + id;
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, city.getCityName());
+            statement.setString(1, position.getPositionName());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -89,14 +90,14 @@ public class CityDao implements Dao<City>{
     }
 
     @Override
-    public void delete(City city) {
-        String query = "DELETE FROM cities WHERE id = ?";
+    public void delete(Position position) {
+        String query = "DELETE FROM Positions WHERE id = ?";
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, city.getCityId());
+            statement.setInt(1, position.getPositionId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

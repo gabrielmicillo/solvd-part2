@@ -1,6 +1,7 @@
 package com.solvd.sciencelab.dao;
 
-import com.solvd.sciencelab.City;
+import com.solvd.sciencelab.Position;
+import com.solvd.sciencelab.Status;
 import com.solvd.sciencelab.dao.conection.Conection;
 
 import java.sql.Connection;
@@ -10,34 +11,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityDao implements Dao<City>{
-
+public class StatusDao implements Dao<Status>{
     @Override
-    public City select(long id) {
-        String query = "SELECT id, city_name FROM cities WHERE id = " + id;
-        City city;
+    public Status select(long id) {
+        String query = "SELECT id, exp_status FROM Status WHERE id = " + id;
+        Status status;
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
-            int cityId = resultSet.getInt("id");
-            String cityName = resultSet.getString("city_name");
+            int statusId = resultSet.getInt("id");
+            String expStatus = resultSet.getString("exp_status");
 
-            city = new City(cityId, cityName);
+            status = new Status(statusId, expStatus);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return city;
+        return status;
     }
 
     @Override
-    public List<City> selectAll() {
-        String query = "SELECT id, city_name FROM careers";
-        List<City> cities = new ArrayList<>();
-        City city;
+    public List<Status> selectAll() {
+        String query = "SELECT id, exp_status FROM Status";
+        Status status;
+        List<Status> statuses = new ArrayList<>();
 
         try {
             Connection connection = Conection.getConnection();
@@ -45,27 +45,27 @@ public class CityDao implements Dao<City>{
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int cityId = resultSet.getInt("id");
-                String cityName = resultSet.getString("city_name");
+                int statusId = resultSet.getInt("id");
+                String expStatus = resultSet.getString("exp_status");
 
-                city = new City(cityId, cityName);
-                cities.add(city);
+                status = new Status(statusId, expStatus);
+                statuses.add(status);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return cities;
+        return statuses;
     }
 
     @Override
-    public void insert(City city) {
-        String query = "INSERT INTO cities (city_name) VALUES (?)";
+    public void insert(Status status) {
+        String query = "INSERT INTO Status (exp_status) VALUES (?)";
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, city.getCityName());
+            statement.setString(1, status.getExpStatus());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,14 +73,14 @@ public class CityDao implements Dao<City>{
     }
 
     @Override
-    public void update(City city, int id) {
-        String query = "UPDATE cities SET city_name = ? WHERE id = " + id;
+    public void update(Status status, int id) {
+        String query = "UPDATE Status SET exp_status = ? WHERE id = " + id;
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, city.getCityName());
+            statement.setString(1, status.getExpStatus());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -89,14 +89,14 @@ public class CityDao implements Dao<City>{
     }
 
     @Override
-    public void delete(City city) {
-        String query = "DELETE FROM cities WHERE id = ?";
+    public void delete(Status status) {
+        String query = "DELETE FROM Status WHERE id = ?";
 
         try {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, city.getCityId());
+            statement.setInt(1, status.getStatusId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
