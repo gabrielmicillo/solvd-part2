@@ -19,13 +19,13 @@ VALUES ("State"),
 ("Mixed"),
 ("This laboratory");
 
-INSERT INTO Labs_size (lab_size, square_meters)
+INSERT INTO Labs_Size (lab_size, square_meters)
 VALUES ("Small", 50),
 ("Medium", 100),
 ("Extra", 150),
 ("Big", 200);
 
-INSERT INTO cities (city_name)
+INSERT INTO Cities (city_name)
 VALUES ("Rosario"),
 ("Chicago"),
 ("Cordoba");
@@ -73,9 +73,9 @@ VALUES ("Scientist"),
 ("Lab_assistant");
 
 INSERT INTO Employees (first_name, last_name, position_id, experiment_id)
-VALUES ("Jorge", "Vega", (SELECT id FROM positions WHERE position_name ="Scientist"), (SELECT id FROM experiments WHERE test_tube_usage =15)),
-("Pablo", "Santos", (SELECT id FROM positions WHERE position_name ="Lab_assistant"), (SELECT id FROM experiments WHERE test_tube_usage =18)),
-("Enrique", "Pereyra", (SELECT id FROM positions WHERE position_name ="Scientist"), (SELECT id FROM experiments WHERE test_tube_usage =20));
+VALUES ("Jorge", "Vega", (SELECT id FROM Positions WHERE position_name ="Scientist"), (SELECT id FROM Experiments WHERE test_tube_usage =15)),
+("Pablo", "Santos", (SELECT id FROM Positions WHERE position_name ="Lab_assistant"), (SELECT id FROM Experiments WHERE test_tube_usage =18)),
+("Enrique", "Pereyra", (SELECT id FROM Positions WHERE position_name ="Scientist"), (SELECT id FROM Experiments WHERE test_tube_usage =20));
 
 INSERT INTO Weekly_Shifts (lab_id, employee_id, weekly_shifts)
 VALUES ((SELECT id FROM Laboratories WHERE name ="Perrando"), (SELECT id FROM Employees WHERE first_name ="Jorge"), 5),

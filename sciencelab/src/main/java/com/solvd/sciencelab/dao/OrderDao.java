@@ -13,8 +13,9 @@ import java.util.List;
 public class OrderDao implements Dao<Order> {
     @Override
     public Order select(long id) {
-        String query = "SELECT o.id, o.hours_required, o.experiment_id, o.client_id, c.first_name, c.last_name FROM orders o " +
-                "JOIN clients c on o.client_id = c.id WHERE o.id = " + id;
+        String query = "Use gabriel_micillo;" +
+                "SELECT o.id, o.hours_required, o.experiment_id, o.client_id, c.first_name, c.last_name FROM orders o " +
+                "JOIN clients c on o.client_id = c.id WHERE o.id = " + id + ";";
 
         Order order;
         Client client = new Client();
@@ -38,6 +39,7 @@ public class OrderDao implements Dao<Order> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        order.toString();
         return order;
     }
 
