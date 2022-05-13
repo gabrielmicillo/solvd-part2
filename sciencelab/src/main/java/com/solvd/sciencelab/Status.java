@@ -1,23 +1,13 @@
 package com.solvd.sciencelab;
 
 public class Status {
-    private int statusId;
     private String expStatus;
 
     public Status() {
     }
 
-    public Status(int statusId, String expStatus) {
-        this.statusId = statusId;
+    public Status(String expStatus) {
         this.expStatus = expStatus;
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
     }
 
     public String getExpStatus() {
@@ -31,8 +21,7 @@ public class Status {
     @Override
     public String toString() {
         return "Status{" +
-                "statusId=" + statusId +
-                ", expStatus='" + expStatus + '\'' +
+                "expStatus='" + expStatus + '\'' +
                 '}';
     }
 }

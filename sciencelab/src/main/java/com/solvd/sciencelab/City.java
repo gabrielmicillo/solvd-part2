@@ -1,23 +1,14 @@
 package com.solvd.sciencelab;
 
 public class City {
-    private int cityId;
+
     private String cityName;
 
     public City() {
     }
 
-    public City(int cityId, String cityName) {
-        this.cityId = cityId;
+    public City(String cityName) {
         this.cityName = cityName;
-    }
-
-    public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
     }
 
     public String getCityName() {
@@ -31,8 +22,7 @@ public class City {
     @Override
     public String toString() {
         return "City{" +
-                "cityId=" + cityId +
-                ", cityName='" + cityName + '\'' +
+                "cityName='" + cityName + '\'' +
                 '}';
     }
 }

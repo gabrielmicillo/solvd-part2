@@ -1,23 +1,13 @@
 package com.solvd.sciencelab;
 
 public class Financiation {
-    private int financiationId;
     private String finOrigin;
 
     public Financiation() {
     }
 
-    public Financiation(int financiationId, String finOrigin) {
-        this.financiationId = financiationId;
+    public Financiation(String finOrigin) {
         this.finOrigin = finOrigin;
-    }
-
-    public int getFinanciationId() {
-        return financiationId;
-    }
-
-    public void setFinanciationId(int financiationId) {
-        this.financiationId = financiationId;
     }
 
     public String getFinOrigin() {
@@ -31,8 +21,7 @@ public class Financiation {
     @Override
     public String toString() {
         return "Financiation{" +
-                "financiationId=" + financiationId +
-                ", finOrigin='" + finOrigin + '\'' +
+                "finOrigin='" + finOrigin + '\'' +
                 '}';
     }
 }

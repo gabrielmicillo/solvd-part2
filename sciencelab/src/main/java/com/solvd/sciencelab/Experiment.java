@@ -1,7 +1,6 @@
 package com.solvd.sciencelab;
 
 public class Experiment {
-    private int experimentId;
     private int testTubeUsage;
     private Status status;
     private ExperimentType experimentType;
@@ -11,21 +10,12 @@ public class Experiment {
     public Experiment() {
     }
 
-    public Experiment(int experimentId, int testTubeUsage, Status status, ExperimentType experimentType, Financiation financiation, Laboratory laboratory) {
-        this.experimentId = experimentId;
+    public Experiment(int testTubeUsage, Status status, ExperimentType experimentType, Financiation financiation, Laboratory laboratory) {
         this.testTubeUsage = testTubeUsage;
         this.status = status;
         this.experimentType = experimentType;
         this.financiation = financiation;
         this.laboratory = laboratory;
-    }
-
-    public int getExperimentId() {
-        return experimentId;
-    }
-
-    public void setExperimentId(int experimentId) {
-        this.experimentId = experimentId;
     }
 
     public int getTestTubeUsage() {
@@ -71,8 +61,7 @@ public class Experiment {
     @Override
     public String toString() {
         return "Experiment{" +
-                "experimentId=" + experimentId +
-                ", testTubeUsage=" + testTubeUsage +
+                "testTubeUsage=" + testTubeUsage +
                 ", status=" + status +
                 ", experimentType=" + experimentType +
                 ", financiation=" + financiation +

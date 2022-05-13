@@ -1,25 +1,15 @@
 package com.solvd.sciencelab;
 
 public class ExperimentType {
-    private int experimentTypeId;
     private String typeName;
     private int costPerHour;
 
     public ExperimentType() {
     }
 
-    public ExperimentType(int experimentTypeId, String typeName, int costPerHour) {
-        this.experimentTypeId = experimentTypeId;
+    public ExperimentType(String typeName, int costPerHour) {
         this.typeName = typeName;
         this.costPerHour = costPerHour;
-    }
-
-    public int getExperimentTypeId() {
-        return experimentTypeId;
-    }
-
-    public void setExperimentTypeId(int experimentTypeId) {
-        this.experimentTypeId = experimentTypeId;
     }
 
     public String getTypeName() {
@@ -41,8 +31,7 @@ public class ExperimentType {
     @Override
     public String toString() {
         return "ExperimentType{" +
-                "experimentTypeId=" + experimentTypeId +
-                ", typeName='" + typeName + '\'' +
+                "typeName='" + typeName + '\'' +
                 ", costPerHour=" + costPerHour +
                 '}';
     }

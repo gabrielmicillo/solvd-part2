@@ -3,7 +3,6 @@ package com.solvd.sciencelab;
 import java.util.List;
 
 public class Order {
-    private int orderId;
     private int hoursRequired;
     private Client client;
     private List<Experiment> experiment;
@@ -11,19 +10,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderId, int hoursRequired, Client client, List<Experiment> experiment) {
-        this.orderId = orderId;
+    public Order(int hoursRequired, Client client, List<Experiment> experiment) {
         this.hoursRequired = hoursRequired;
         this.client = client;
         this.experiment = experiment;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public int getHoursRequired() {
@@ -53,8 +43,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
-                ", hoursRequired=" + hoursRequired +
+                "hoursRequired=" + hoursRequired +
                 ", client=" + client +
                 ", experiment=" + experiment +
                 '}';

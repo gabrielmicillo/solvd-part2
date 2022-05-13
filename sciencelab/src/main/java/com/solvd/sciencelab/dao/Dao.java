@@ -1,12 +1,13 @@
 package com.solvd.sciencelab.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Dao<T> {
 
-    T select(long id);
+    T select(long id) throws SQLException;
 
-    List<T> selectAll();
+    List<T> selectAll() throws SQLException;
 
     void insert(T t);
 

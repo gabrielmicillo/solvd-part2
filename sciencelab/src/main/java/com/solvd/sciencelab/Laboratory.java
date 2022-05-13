@@ -1,7 +1,6 @@
 package com.solvd.sciencelab;
 
 public class Laboratory {
-    private int laboratoryId;
     private String name;
     private int expCapacity;
     private LabSize labsize;
@@ -10,20 +9,11 @@ public class Laboratory {
     public Laboratory() {
     }
 
-    public Laboratory(int laboratoryId, String name, int expCapacity, LabSize labsize, City city) {
-        this.laboratoryId = laboratoryId;
+    public Laboratory(String name, int expCapacity, LabSize labsize, City city) {
         this.name = name;
         this.expCapacity = expCapacity;
         this.labsize = labsize;
         this.city = city;
-    }
-
-    public int getLaboratoryId() {
-        return laboratoryId;
-    }
-
-    public void setLaboratoryId(int laboratoryId) {
-        this.laboratoryId = laboratoryId;
     }
 
     public String getName() {
@@ -61,8 +51,7 @@ public class Laboratory {
     @Override
     public String toString() {
         return "Laboratory{" +
-                "laboratoryId=" + laboratoryId +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", expCapacity=" + expCapacity +
                 ", labsize=" + labsize +
                 ", city=" + city +

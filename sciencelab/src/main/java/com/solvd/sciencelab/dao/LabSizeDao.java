@@ -1,8 +1,9 @@
 package com.solvd.sciencelab.dao;
 
-import com.solvd.sciencelab.City;
 import com.solvd.sciencelab.LabSize;
 import com.solvd.sciencelab.dao.conection.Conection;
+import com.solvd.sciencelab.dao.conection.ConnectionPool;
+import com.solvd.sciencelab.dao.conection.JDBCDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,53 +12,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LabSizeDao implements Dao<LabSize> {
-    @Override
-    public LabSize select(long id) {
-        String query = "SELECT id, lab_size, square_meters FROM Labs_Size WHERE id = " + id;
-        LabSize lSize;
+public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
 
-        try {
-            Connection connection = Conection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+    private ConnectionPool cp = getCp();
 
-            int labSizeId = resultSet.getInt("id");
-            String labSize = resultSet.getString("lab_size");
-            int squareMeters = resultSet.getInt("square_meters");
-
-            lSize = new LabSize(labSizeId, labSize, squareMeters);
-
+    public LabSize select(long id) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "Select * from Labs_Size where ID = ?";
+        try (PreparedStatement ps = c.prepareStatement(query);) {
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
         }
-        return lSize;
+
     }
 
     @Override
-    public List<LabSize> selectAll() {
-        String query = "SELECT id, lab_size, square_meters FROM Labs_Size";
-        LabSize lSize;
+    public List<LabSize> selectAll() throws SQLException {
+        Connection c = cp.getConnection();
         List<LabSize> labSizes = new ArrayList<>();
-
-        try {
-            Connection connection = Conection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-
-                int labSizeId = resultSet.getInt("id");
-                String labSize = resultSet.getString("lab_size");
-                int squareMeters = resultSet.getInt("square_meters");
-
-                lSize = new LabSize(labSizeId, labSize, squareMeters);
-                labSizes.add(lSize);
+        String query = "Select * from Labs_Size";
+        try (PreparedStatement ps = c.prepareStatement(query);) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LabSize labSize = new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
+                labSizes.add(labSize);
             }
+            return labSizes;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
         }
-        return labSizes;
     }
 
     @Override
@@ -101,7 +92,7 @@ public class LabSizeDao implements Dao<LabSize> {
             Connection connection = Conection.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, lSize.getLabSizeId());
+            statement.setInt(1, lSize.getSquareMeters());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

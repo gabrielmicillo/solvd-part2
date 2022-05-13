@@ -3,7 +3,6 @@ package com.solvd.sciencelab;
 import java.util.List;
 
 public class Employee {
-    private int employeeId;
     private String firstName;
     private String lastName;
     private Position position;
@@ -12,20 +11,11 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId, String firstName, String lastName, Position position, List<Experiment> experiment) {
-        this.employeeId = employeeId;
+    public Employee(String firstName, String lastName, Position position, List<Experiment> experiment) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.experiment = experiment;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -63,8 +53,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", position=" + position +
                 ", experiment=" + experiment +
