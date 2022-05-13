@@ -4,6 +4,8 @@ import com.solvd.sciencelab.LabSize;
 import com.solvd.sciencelab.dao.LabSizeDao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LabSizeService {
     private LabSizeDao labSizeDao = new LabSizeDao();
@@ -16,6 +18,25 @@ public class LabSizeService {
             System.out.println(e.getMessage());
         }
         return l;
+    }
+
+    public List<LabSize> getAllLabSizes() {
+        List<LabSize> labSizes = new ArrayList<>();
+        try {
+            labSizes = labSizeDao.selectAll();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return labSizes;
+    }
+
+    public void newLabSize(String labSize, int squareMeters) {
+        LabSize newLabSize = new LabSize(labSize, squareMeters);
+        try {
+            labSizeDao.insert(newLabSize);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

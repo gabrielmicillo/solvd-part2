@@ -1,18 +1,41 @@
 package com.solvd.sciencelab.service;
 
+import com.solvd.sciencelab.LabSize;
 import com.solvd.sciencelab.Laboratory;
 import com.solvd.sciencelab.Order;
+import com.solvd.sciencelab.dao.LabSizeDao;
 import com.solvd.sciencelab.dao.LaboratoryDao;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LaboratoryService {
     LaboratoryDao laboratoryDao = new LaboratoryDao();
+    LabSizeDao labSizeDao = new LabSizeDao();
 
-    public Laboratory getLaboratoryById(int id) {
-        return laboratoryDao.select(id);
+    public Laboratory getLaboratoryById(long id) {
+        Laboratory lab = new Laboratory();
+        try {
+            lab = laboratoryDao.select(id);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lab;
+    }
+
+    public Laboratory getLabByLabSizeId(long id) {
+        LabSize ls = new LabSize();
+        Laboratory l = new Laboratory();
+        try {
+            ls = labSizeDao.select(id);
+            l = laboratoryDao.select(id);
+            l.setLabsize(ls);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return l;
     }
 
     public List<Laboratory> getAllLaboratories() {

@@ -9,9 +9,9 @@ public interface Dao<T> {
 
     List<T> selectAll() throws SQLException;
 
-    void insert(T t);
+    void insert(T t) throws SQLException;
 
     void update(T t, int id);
 
-    void delete(T t);
+    void delete(T t) throws SQLException;
 }

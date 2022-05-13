@@ -3,6 +3,7 @@ package com.solvd.sciencelab;
 import java.util.List;
 
 public class Order {
+    private long orderId;
     private int hoursRequired;
     private Client client;
     private List<Experiment> experiment;
@@ -14,6 +15,14 @@ public class Order {
         this.hoursRequired = hoursRequired;
         this.client = client;
         this.experiment = experiment;
+    }
+
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public int getHoursRequired() {
@@ -43,7 +52,8 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "hoursRequired=" + hoursRequired +
+                "orderId=" + orderId +
+                ", hoursRequired=" + hoursRequired +
                 ", client=" + client +
                 ", experiment=" + experiment +
                 '}';
