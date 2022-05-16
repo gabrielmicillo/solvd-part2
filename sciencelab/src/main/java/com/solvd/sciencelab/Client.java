@@ -1,15 +1,26 @@
 package com.solvd.sciencelab;
 
 public class Client {
+
+    private int clientId;
     private String firstName;
     private String lastName;
 
     public Client() {
     }
 
-    public Client(String firstName, String lastName) {
+    public Client(int clientId, String firstName, String lastName) {
+        this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstName() {
@@ -31,7 +42,8 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "firstName='" + firstName + '\'' +
+                "clientId=" + clientId +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }

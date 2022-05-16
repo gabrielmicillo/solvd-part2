@@ -1,21 +1,34 @@
 package com.solvd.sciencelab;
 
+import jakarta.xml.bind.annotation.XmlType;
+
+
 import java.util.List;
 
+@XmlType(propOrder = {"employeeId", "lastName", "firstName"})
 public class Employee {
+
+    private int employeeId;
     private String firstName;
     private String lastName;
-    private Position position;
-    private List<Experiment> experiment;
+//    private Position position;
+//    private List<Experiment> experiment;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, Position position, List<Experiment> experiment) {
+    public Employee(int employeeId, String firstName, String lastName) {
+        this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.position = position;
-        this.experiment = experiment;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getFirstName() {
@@ -34,29 +47,30 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Position getPosition() {
-        return position;
-    }
+//    public Position getPosition() {
+//        return position;
+//    }
+//
+//    public void setPosition(Position position) {
+//        this.position = position;
+//    }
+//
+//    public List<Experiment> getExperiment() {
+//        return experiment;
+//    }
+//
+//    public void setExperiment(List<Experiment> experiment) {
+//        this.experiment = experiment;
+//    }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public List<Experiment> getExperiment() {
-        return experiment;
-    }
-
-    public void setExperiment(List<Experiment> experiment) {
-        this.experiment = experiment;
-    }
+//
 
     @Override
     public String toString() {
         return "Employee{" +
-                "firstName='" + firstName + '\'' +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", position=" + position +
-                ", experiment=" + experiment +
                 '}';
     }
 }
