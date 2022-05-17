@@ -2,6 +2,8 @@ package com.solvd.sciencelab.service;
 
 import com.solvd.sciencelab.dao.ExperimentDao;
 import com.solvd.sciencelab.entities.Experiment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 
 public class ExperimentService {
 
+    private static Logger LOGGER = LogManager.getLogger(ExperimentService.class);
+
     ExperimentDao experimentDao = new ExperimentDao();
 
     public Experiment getExperimentById(long id) {
@@ -18,7 +22,7 @@ public class ExperimentService {
         try {
             ex = experimentDao.select(id);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return ex;
     }
@@ -28,7 +32,7 @@ public class ExperimentService {
         try {
             experiments = experimentDao.selectAll();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return experiments;
     }
@@ -51,7 +55,7 @@ public class ExperimentService {
         try {
             experimentDao.delete(experiment);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
 
     }

@@ -3,12 +3,16 @@ package com.solvd.sciencelab;
 import com.solvd.sciencelab.entities.Employee;
 import com.solvd.sciencelab.entities.Human;
 import jakarta.xml.bind.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JaxbRunner {
+    private static final Logger LOGGER = LogManager.getLogger(JaxbRunner.class);
+
     public static void main(String[] args) {
 //        createXML();
         readXML();
@@ -56,7 +60,7 @@ public class JaxbRunner {
             Human hum = (Human) ums.unmarshal(new File("src/main/resources/JAXBemployeesUnmarshal.xml"));
 
             for (Employee emp : hum.getEmployees()) {
-                System.out.println(emp.getEmployeeId() + " " + emp.getFirstName() + " " + emp.getLastName());
+                LOGGER.info(emp.getEmployeeId() + " " + emp.getFirstName() + " " + emp.getLastName());
             }
         } catch (JAXBException e) {
             throw new RuntimeException(e);

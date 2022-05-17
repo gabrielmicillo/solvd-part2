@@ -3,6 +3,8 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.LabSize;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
+    private static final Logger LOGGER = LogManager.getLogger(LabSizeDao.class);
 
     private final ConnectionPool cp = getCp();
 
@@ -73,7 +76,7 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
             ps.setString(1, lSize.getLabSize());
             ps.setInt(2, lSize.getSquareMeters());
             ps.executeUpdate();
-            System.out.println("Laboratory size: " + lSize + " successfully stored in database.");
+            LOGGER.info("Laboratory size: " + lSize + " successfully stored in database.");
         } catch (SQLException e) {
             throw new SQLException();
         } finally {

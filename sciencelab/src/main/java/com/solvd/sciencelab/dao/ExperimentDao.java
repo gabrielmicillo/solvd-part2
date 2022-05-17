@@ -4,6 +4,8 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.Experiment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class ExperimentDao extends JDBCDao implements Dao<Experiment> {
 
+    private static final Logger LOGGER = LogManager.getLogger(ExperimentDao.class);
     private final ConnectionPool cp = getCp();
 
     @Override
@@ -67,7 +70,7 @@ public class ExperimentDao extends JDBCDao implements Dao<Experiment> {
 
         try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setLong(1, experiment.getExperimentId());
-            System.out.println("Experiment: " + experiment.getExperimentId() + " was canceled and deleted.");
+            LOGGER.info("Experiment: " + experiment.getExperimentId() + " was canceled and deleted.");
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException();

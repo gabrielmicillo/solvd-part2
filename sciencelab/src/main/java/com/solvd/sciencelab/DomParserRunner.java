@@ -1,5 +1,7 @@
 package com.solvd.sciencelab;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -12,6 +14,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class DomParserRunner {
+    private static final Logger LOGGER = LogManager.getLogger(DomParserRunner.class);
+
     public static void main(String[] args) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -28,7 +32,7 @@ public class DomParserRunner {
                         Node n = nameList.item(j);
                         if (n.getNodeType() == Node.ELEMENT_NODE) {
                             Element name = (Element) n;
-                            System.out.println("Employee " + id + ":" + name.getTagName() + "=" + name.getTextContent());
+                            LOGGER.info("Employee " + id + ":" + name.getTagName() + "=" + name.getTextContent());
                         }
                     }
 

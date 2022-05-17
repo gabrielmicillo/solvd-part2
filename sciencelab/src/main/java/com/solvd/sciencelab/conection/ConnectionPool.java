@@ -24,10 +24,10 @@ public class ConnectionPool {
         }
     }
 
+    private final List<Connection> usedConnections = new ArrayList<>();
     private String url = props.getProperty("url");
     private String user = props.getProperty("user");
     private String password = props.getProperty("password");
-    private final List<Connection> usedConnections = new ArrayList<>();
 
     private ConnectionPool() {
     }

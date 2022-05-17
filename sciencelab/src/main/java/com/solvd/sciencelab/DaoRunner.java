@@ -1,19 +1,26 @@
 package com.solvd.sciencelab;
 
+import com.solvd.sciencelab.service.LabSizeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.SQLException;
 
 public class DaoRunner {
+    private static final Logger LOGGER = LogManager.getLogger(DaoRunner.class);
+
     public static void main(String[] args) throws SQLException {
-//        LabSizeService labSizeService = new LabSizeService();
-//        System.out.println(labSizeService.getLabSizeById(1));
-//        System.out.println(labSizeService.getAllLabSizes());
+
+        LabSizeService labSizeService = new LabSizeService();
+        LOGGER.info(labSizeService.getLabSizeById(1));
+        LOGGER.info(labSizeService.getAllLabSizes());
 //        labSizeService.newLabSize("not so big", 21);
-//        System.out.println(labSizeService.getAllLabSizes());
+//        LOGGER.info(labSizeService.getAllLabSizes());
 
 //        LaboratoryService laboratoryService = new LaboratoryService();
-//        System.out.println(laboratoryService.getLabByLabSizeId(1));
+//        LOGGER.info(laboratoryService.getLabByLabSizeId(1));
 //        laboratoryService.newLaboratory("Frangioli", 5, 1, 1);
-//        System.out.println(laboratoryService.getLaboratoryById(5));
+//        LOGGER.info(laboratoryService.getLaboratoryById(5));
 
 //        ExperimentService experimentService = new ExperimentService();
 //        ExperimentDao experimentDao = new ExperimentDao();

@@ -2,12 +2,15 @@ package com.solvd.sciencelab.service;
 
 import com.solvd.sciencelab.dao.LabSizeDao;
 import com.solvd.sciencelab.entities.LabSize;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LabSizeService {
+    private static Logger LOGGER = LogManager.getLogger(LabSizeService.class);
     private final LabSizeDao labSizeDao = new LabSizeDao();
 
     public LabSize getLabSizeById(long id) {
@@ -15,7 +18,7 @@ public class LabSizeService {
         try {
             l = labSizeDao.select(id);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return l;
     }
@@ -25,7 +28,7 @@ public class LabSizeService {
         try {
             labSizes = labSizeDao.selectAll();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return labSizes;
     }
@@ -35,7 +38,7 @@ public class LabSizeService {
         try {
             labSizeDao.insert(newLabSize);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
     }
 

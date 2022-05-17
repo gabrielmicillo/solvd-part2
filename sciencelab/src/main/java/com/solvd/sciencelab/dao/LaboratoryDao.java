@@ -3,6 +3,8 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.Laboratory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
+    private static final Logger LOGGER = LogManager.getLogger(LaboratoryDao.class);
     private final ConnectionPool cp = getCp();
 
     @Override
@@ -60,7 +63,7 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
             ps.setInt(3, laboratory.getLabsize().getLabSizeId());
             ps.setInt(4, laboratory.getCity().getCityId());
             ps.executeUpdate();
-            System.out.println("Laboratory: " + laboratory.getName() + " successfully stored into database.");
+            LOGGER.info("Laboratory: " + laboratory.getName() + " successfully stored into database.");
         } catch (SQLException e) {
             throw new SQLException();
         } finally {

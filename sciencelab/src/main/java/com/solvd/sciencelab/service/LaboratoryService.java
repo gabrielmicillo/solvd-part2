@@ -6,6 +6,8 @@ import com.solvd.sciencelab.dao.LaboratoryDao;
 import com.solvd.sciencelab.entities.City;
 import com.solvd.sciencelab.entities.LabSize;
 import com.solvd.sciencelab.entities.Laboratory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Comparator;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LaboratoryService {
+    private static Logger LOGGER = LogManager.getLogger(LaboratoryService.class);
 
     LaboratoryDao laboratoryDao = new LaboratoryDao();
     LabSizeDao labSizeDao = new LabSizeDao();
@@ -23,7 +26,7 @@ public class LaboratoryService {
         try {
             lab = laboratoryDao.select(id);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return lab;
     }
@@ -39,7 +42,7 @@ public class LaboratoryService {
             l.setCity(c);
             l.setLabsize(ls);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return l;
     }
