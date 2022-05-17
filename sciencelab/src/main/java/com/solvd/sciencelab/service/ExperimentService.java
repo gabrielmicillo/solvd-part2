@@ -1,10 +1,7 @@
 package com.solvd.sciencelab.service;
 
-import com.solvd.sciencelab.Employee;
-import com.solvd.sciencelab.Experiment;
-import com.solvd.sciencelab.LabSize;
-import com.solvd.sciencelab.Order;
 import com.solvd.sciencelab.dao.ExperimentDao;
+import com.solvd.sciencelab.entities.Experiment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class ExperimentService {
         return ex;
     }
 
-    public List<Experiment> getAllExperiments(){
+    public List<Experiment> getAllExperiments() {
         List<Experiment> experiments = new ArrayList<>();
         try {
             experiments = experimentDao.selectAll();
@@ -36,14 +33,13 @@ public class ExperimentService {
         return experiments;
     }
 
-    public List<Experiment> getAllExperimentByTestTubeUsage() {
-//        return experimentDao.selectAll().stream()
-//                .sorted(Comparator.comparing(Experiment::getTestTubeUsage))
-//                .collect(Collectors.toList());
-        return null;
+    public List<Experiment> getAllExperimentByTestTubeUsage() throws SQLException {
+        return experimentDao.selectAll().stream()
+                .sorted(Comparator.comparing(Experiment::getTestTubeUsage))
+                .collect(Collectors.toList());
     }
 
-    public void newExperiment (Experiment experiment) {
+    public void newExperiment(Experiment experiment) {
         experimentDao.insert(experiment);
     }
 
@@ -51,7 +47,7 @@ public class ExperimentService {
         experimentDao.update(experiment, id);
     }
 
-    public void cancelExperiment (Experiment experiment) {
+    public void cancelExperiment(Experiment experiment) {
         try {
             experimentDao.delete(experiment);
         } catch (SQLException e) {

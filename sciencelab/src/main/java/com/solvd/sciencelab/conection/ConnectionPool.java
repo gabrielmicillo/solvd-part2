@@ -1,4 +1,4 @@
-package com.solvd.sciencelab.dao.conection;
+package com.solvd.sciencelab.conection;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Properties;
 
 public class ConnectionPool {
-    private static Properties props = new Properties();
+    private static final Properties props = new Properties();
+    private static final int INITIAL_POOL_SIZE = 1;
+    private static List<Connection> connectionPool = new ArrayList<>(INITIAL_POOL_SIZE);
+    private static ConnectionPool INSTANCE = null;
 
     static {
         try {
@@ -20,14 +23,11 @@ public class ConnectionPool {
             e.getMessage();
         }
     }
+
     private String url = props.getProperty("url");
     private String user = props.getProperty("user");
     private String password = props.getProperty("password");
-    private static int INITIAL_POOL_SIZE = 1;
-    private static List<Connection> connectionPool = new ArrayList<>(INITIAL_POOL_SIZE);
-
-    private List<Connection> usedConnections = new ArrayList<>();
-    private static ConnectionPool INSTANCE = null;
+    private final List<Connection> usedConnections = new ArrayList<>();
 
     private ConnectionPool() {
     }
@@ -55,6 +55,10 @@ public class ConnectionPool {
         return new ConnectionPool(url, user, password, pool);
     }
 
+    private static Connection createConnection(String url, String user, String password) throws SQLException {
+        return DriverManager.getConnection(url, user, password);
+    }
+
     public Connection getConnection() {
         Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
@@ -74,10 +78,6 @@ public class ConnectionPool {
                 e.printStackTrace();
             }
         });
-    }
-
-    private static Connection createConnection(String url, String user, String password) throws SQLException {
-        return DriverManager.getConnection(url, user, password);
     }
 
     public int getSize() {

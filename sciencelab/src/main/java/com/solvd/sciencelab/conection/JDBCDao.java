@@ -1,4 +1,4 @@
-package com.solvd.sciencelab.dao.conection;
+package com.solvd.sciencelab.conection;
 
 import java.sql.SQLException;
 

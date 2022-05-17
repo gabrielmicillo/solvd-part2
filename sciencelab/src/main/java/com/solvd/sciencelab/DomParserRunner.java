@@ -18,15 +18,15 @@ public class DomParserRunner {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse("src/main/resources/employees.xml");
             NodeList employeeList = doc.getElementsByTagName("employee");
-            for(int i=0;i<employeeList.getLength();i++){
+            for (int i = 0; i < employeeList.getLength(); i++) {
                 Node e = employeeList.item(i);
-                if(e.getNodeType()==Node.ELEMENT_NODE){
+                if (e.getNodeType() == Node.ELEMENT_NODE) {
                     Element employee = (Element) e;
                     String id = employee.getAttribute("id");
                     NodeList nameList = employee.getChildNodes();
-                    for(int j=0;j<nameList.getLength();j++){
+                    for (int j = 0; j < nameList.getLength(); j++) {
                         Node n = nameList.item(j);
-                        if(n.getNodeType()==Node.ELEMENT_NODE){
+                        if (n.getNodeType() == Node.ELEMENT_NODE) {
                             Element name = (Element) n;
                             System.out.println("Employee " + id + ":" + name.getTagName() + "=" + name.getTextContent());
                         }

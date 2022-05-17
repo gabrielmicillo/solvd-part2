@@ -1,5 +1,7 @@
 package com.solvd.sciencelab;
 
+import com.solvd.sciencelab.entities.Employee;
+import com.solvd.sciencelab.entities.Human;
 import jakarta.xml.bind.*;
 
 import java.io.File;
@@ -12,8 +14,8 @@ public class JaxbRunner {
         readXML();
     }
 
-    public static void createXML(){
-        try{
+    public static void createXML() {
+        try {
             List<Employee> employees = new ArrayList<>();
             Employee emp = new Employee();
             emp.setEmployeeId(1);
@@ -31,7 +33,7 @@ public class JaxbRunner {
             hum.setEmployees(employees);
 
 //            JAXB context
-            JAXBContext ctx = JAXBContext.newInstance(com.solvd.sciencelab.Human.class);
+            JAXBContext ctx = JAXBContext.newInstance(Human.class);
 //            Convertion of Java into XML
             Marshaller ms = ctx.createMarshaller();
 //            Preparing format of the XML file
@@ -45,13 +47,13 @@ public class JaxbRunner {
         }
     }
 
-    public static void readXML(){
-        try{
+    public static void readXML() {
+        try {
 //            creating JAXB context
-            JAXBContext ctx = JAXBContext.newInstance(com.solvd.sciencelab.Human.class);
+            JAXBContext ctx = JAXBContext.newInstance(Human.class);
             Unmarshaller ums = ctx.createUnmarshaller();
 
-            Human hum = (Human)ums.unmarshal(new File("src/main/resources/JAXBemployeesUnmarshal.xml"));
+            Human hum = (Human) ums.unmarshal(new File("src/main/resources/JAXBemployeesUnmarshal.xml"));
 
             for (Employee emp : hum.getEmployees()) {
                 System.out.println(emp.getEmployeeId() + " " + emp.getFirstName() + " " + emp.getLastName());

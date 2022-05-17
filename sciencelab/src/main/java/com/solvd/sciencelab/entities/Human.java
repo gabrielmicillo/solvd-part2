@@ -1,4 +1,4 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -22,7 +22,7 @@ public class Human {
         return employees;
     }
 
-    @XmlElement(name="employee")
+    @XmlElement(name = "employee")
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }

@@ -1,9 +1,6 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 import jakarta.xml.bind.annotation.XmlType;
-
-
-import java.util.List;
 
 @XmlType(propOrder = {"employeeId", "lastName", "firstName"})
 public class Employee {

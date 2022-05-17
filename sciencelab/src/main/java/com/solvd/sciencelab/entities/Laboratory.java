@@ -1,4 +1,4 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 public class Laboratory {
     private String name;
@@ -12,6 +12,13 @@ public class Laboratory {
     public Laboratory(String name, int expCapacity) {
         this.name = name;
         this.expCapacity = expCapacity;
+    }
+
+    public Laboratory(String name, int expCapacity, LabSize labsize, City city) {
+        this.name = name;
+        this.expCapacity = expCapacity;
+        this.labsize = labsize;
+        this.city = city;
     }
 
     public String getName() {

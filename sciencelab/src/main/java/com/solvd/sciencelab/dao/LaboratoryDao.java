@@ -1,24 +1,23 @@
 package com.solvd.sciencelab.dao;
 
-import com.solvd.sciencelab.*;
-import com.solvd.sciencelab.dao.conection.Conection;
-import com.solvd.sciencelab.dao.conection.ConnectionPool;
-import com.solvd.sciencelab.dao.conection.JDBCDao;
+import com.solvd.sciencelab.conection.ConnectionPool;
+import com.solvd.sciencelab.conection.JDBCDao;
+import com.solvd.sciencelab.entities.Laboratory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
-    private ConnectionPool cp = getCp();
+    private final ConnectionPool cp = getCp();
+
     @Override
     public Laboratory select(long id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Laboratories where ID = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -32,8 +31,8 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
 
     public Laboratory selectByLabSizeId(long id) throws SQLException {
         Connection c = cp.getConnection();
-        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id where Laboratories.id = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id = ?";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -48,87 +47,32 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
 
     @Override
     public List<Laboratory> selectAll() {
-//        String query = "SELECT l.id, l.name, l.exp_capacity, l.labs_size_id, l.city_id, ls.lab_size, ls.square_meters, c.city_name FROM laboratories l " +
-//                "JOIN labs_size ls on l.labs_size_id = ls.id " +
-//                "JOIN cities c on l.city_id = c.id";
-//
-//        Laboratory laboratory;
-//        LabSize labSize = new LabSize();
-//        City city = new City();
-//        List<Laboratory> laboratories = new ArrayList<>();
-//
-//        try {
-//            Connection connection = Conection.getConnection();
-//            PreparedStatement statement = connection.prepareStatement(query);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                //Laboratory info
-//                int laboratoryId = resultSet.getInt("id");
-//                String name = resultSet.getString("name");
-//                int expCapacity = resultSet.getInt("exp_capacity");
-//
-//                //LabSize info
-////                labSize.setLabSizeId(resultSet.getInt("labs_size_id"));
-//                labSize.setLabSize(resultSet.getString("lab_size"));
-//
-//                //City info
-//                city.setCityId(resultSet.getInt("city_id"));
-//                city.setCityName(resultSet.getString("city_name"));
-//
-//                laboratory = new Laboratory(laboratoryId, name, expCapacity, labSize, city);
-//                laboratories.add(laboratory);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
         return null;
     }
 
     @Override
-    public void insert(Laboratory laboratory) {
-        String query = "INSERT INTO laboratories (name, exp_capacity) VALUES (?, ?)";
-
-        try {
-            Connection connection = Conection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setString(1, laboratory.getName());
-            statement.setInt(2, laboratory.getExpCapacity());
-            statement.executeUpdate();
+    public void insert(Laboratory laboratory) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "INSERT INTO Laboratories (name, exp_capacity, labs_size_id, city_id) VALUES (?,?,?,?)";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setString(1, laboratory.getName());
+            ps.setInt(2, laboratory.getExpCapacity());
+            ps.setInt(3, laboratory.getLabsize().getLabSizeId());
+            ps.setInt(4, laboratory.getCity().getCityId());
+            ps.executeUpdate();
+            System.out.println("Laboratory: " + laboratory.getName() + " successfully stored into database.");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
         }
     }
 
     @Override
     public void update(Laboratory laboratory, int id) {
-        String query = "UPDATE laboratories SET name = ?, exp_capacity = ? WHERE id = " + id;
-
-        try {
-            Connection connection = Conection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setString(1, laboratory.getName());
-            statement.setInt(1, laboratory.getExpCapacity());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
     public void delete(Laboratory laboratory) {
-        String query = "DELETE FROM laboratories WHERE id = ?";
-
-        try {
-            Connection connection = Conection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setInt(1, laboratory.getExpCapacity());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

@@ -1,9 +1,9 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 import java.util.List;
 
 public class Order {
-    private long orderId;
+    private int orderId;
     private int hoursRequired;
     private Client client;
     private List<Experiment> experiment;
@@ -11,17 +11,16 @@ public class Order {
     public Order() {
     }
 
-    public Order(int hoursRequired, Client client, List<Experiment> experiment) {
+    public Order(int orderId, int hoursRequired) {
+        this.orderId = orderId;
         this.hoursRequired = hoursRequired;
-        this.client = client;
-        this.experiment = experiment;
     }
 
     public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(long orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 

@@ -1,7 +1,8 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 public class LabSize {
 
+    private int labSizeId;
     private String labSize;
     private int squareMeters;
 
@@ -13,9 +14,19 @@ public class LabSize {
         this.squareMeters = squareMeters;
     }
 
+    public LabSize(int labSizeId, String labSize, int squareMeters) {
+        this.labSizeId = labSizeId;
+        this.labSize = labSize;
+        this.squareMeters = squareMeters;
+    }
 
+    public int getLabSizeId() {
+        return labSizeId;
+    }
 
-
+    public void setLabSizeId(int labSizeId) {
+        this.labSizeId = labSizeId;
+    }
 
     public String getLabSize() {
         return labSize;

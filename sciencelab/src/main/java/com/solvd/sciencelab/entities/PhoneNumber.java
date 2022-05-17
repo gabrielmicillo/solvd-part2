@@ -1,4 +1,4 @@
-package com.solvd.sciencelab;
+package com.solvd.sciencelab.entities;
 
 public class PhoneNumber {
     private int phoneNumber;

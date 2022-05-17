@@ -1,14 +1,14 @@
 package com.solvd.sciencelab.service;
 
-import com.solvd.sciencelab.LabSize;
 import com.solvd.sciencelab.dao.LabSizeDao;
+import com.solvd.sciencelab.entities.LabSize;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LabSizeService {
-    private LabSizeDao labSizeDao = new LabSizeDao();
+    private final LabSizeDao labSizeDao = new LabSizeDao();
 
     public LabSize getLabSizeById(long id) {
         LabSize l = new LabSize();

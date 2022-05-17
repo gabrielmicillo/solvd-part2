@@ -2,28 +2,26 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
-import com.solvd.sciencelab.entities.Order;
+import com.solvd.sciencelab.entities.City;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDao extends JDBCDao implements Dao<Order> {
-
+public class CityDao extends JDBCDao implements Dao<City> {
     private final ConnectionPool cp = getCp();
 
     @Override
-    public Order select(long id) throws SQLException {
+    public City select(long id) throws SQLException {
         Connection c = cp.getConnection();
-        String query = "Select * from Orders where ID = ?";
+        String query = "Select * from Cities where ID = ?";
         try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new Order(rs.getInt("id"), rs.getInt("hours_required"));
+            return new City(rs.getString("city_name"));
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
@@ -31,18 +29,14 @@ public class OrderDao extends JDBCDao implements Dao<Order> {
         }
     }
 
-    @Override
-    public List<Order> selectAll() throws SQLException {
+    public City getByLaboratoryId(int id) throws SQLException {
         Connection c = cp.getConnection();
-        List<Order> orders = new ArrayList<>();
-        String query = "Select * from Orders";
+        String query = "Select * from Laboratories JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id=?";
         try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Order order = new Order(rs.getInt("id"), rs.getInt("hours_required"));
-                orders.add(order);
-            }
-            return orders;
+            rs.next();
+            return new City(rs.getInt("city_id"), rs.getString("city_name"));
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
@@ -51,14 +45,22 @@ public class OrderDao extends JDBCDao implements Dao<Order> {
     }
 
     @Override
-    public void insert(Order order) {
+    public List<City> selectAll() throws SQLException {
+        return null;
     }
 
     @Override
-    public void update(Order order, int id) {
+    public void insert(City city) throws SQLException {
+
     }
 
     @Override
-    public void delete(Order order) {
+    public void update(City city, int id) {
+
+    }
+
+    @Override
+    public void delete(City city) throws SQLException {
+
     }
 }
