@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<finishedWork>
+    <orders>
+        <client>
+            <clientId>123</clientId>
+            <firstName>Peter</firstName>
+            <lastName>Gonzalez</lastName>
+        </client>
+        <hoursRequired>36</hoursRequired>
+    </orders>
+    <orders>
+        <client>
+            <clientId>126</clientId>
+            <firstName>Antonio</firstName>
+            <lastName>Cassano</lastName>
+        </client>
+        <hoursRequired>45</hoursRequired>
+    </orders>
+</finishedWork>

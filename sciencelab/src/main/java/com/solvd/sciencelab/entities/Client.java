@@ -1,5 +1,8 @@
 package com.solvd.sciencelab.entities;
 
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlType
 public class Client {
 
     private int clientId;

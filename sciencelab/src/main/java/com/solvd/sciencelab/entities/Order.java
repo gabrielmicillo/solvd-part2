@@ -1,12 +1,14 @@
 package com.solvd.sciencelab.entities;
 
-import java.util.List;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlType;
 
+@XmlType
 public class Order {
     private int orderId;
     private int hoursRequired;
     private Client client;
-    private List<Experiment> experiment;
+//    private List<Experiment> experiment;
 
     public Order() {
     }
@@ -16,10 +18,18 @@ public class Order {
         this.hoursRequired = hoursRequired;
     }
 
+    public Order(int orderId, int hoursRequired, Client client) {
+        this.orderId = orderId;
+        this.hoursRequired = hoursRequired;
+        this.client = client;
+    }
+
+
     public long getOrderId() {
         return orderId;
     }
 
+    @XmlAttribute
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
@@ -40,13 +50,13 @@ public class Order {
         this.client = client;
     }
 
-    public List<Experiment> getExperiment() {
-        return experiment;
-    }
-
-    public void setExperiment(List<Experiment> experiment) {
-        this.experiment = experiment;
-    }
+//    public List<Experiment> getExperiment() {
+//        return experiment;
+//    }
+//
+//    public void setExperiment(List<Experiment> experiment) {
+//        this.experiment = experiment;
+//    }
 
     @Override
     public String toString() {
@@ -54,7 +64,6 @@ public class Order {
                 "orderId=" + orderId +
                 ", hoursRequired=" + hoursRequired +
                 ", client=" + client +
-                ", experiment=" + experiment +
                 '}';
     }
 }
