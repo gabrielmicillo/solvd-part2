@@ -30,7 +30,7 @@ public class DaoRunner {
 
         LaboratoryDao labDao = new LaboratoryDao();
         LabSizeDao labSizeDao = new LabSizeDao();
-        LaboratoryService laboratoryService = new LaboratoryService();
+//        LaboratoryService laboratoryService = new LaboratoryService();
         CityDao cityDao = new CityDao();
 
         City city = new City("Machagai");
@@ -44,7 +44,8 @@ public class DaoRunner {
         Laboratory laboratory = new Laboratory("Frangioli", 4, labSize, city);
 
         labDao.insert(laboratory);
-        LOGGER.info(laboratoryService.getLaboratoryById(5));
+        LOGGER.info(labDao.select(5));
+//        LOGGER.info(laboratoryService.getLaboratoryById(5));
 ////
 //        LOGGER.info(laboratoryService.getLabByLabSizeId(1));
 //        LOGGER.info(laboratoryService.getLaboratoryById(5));

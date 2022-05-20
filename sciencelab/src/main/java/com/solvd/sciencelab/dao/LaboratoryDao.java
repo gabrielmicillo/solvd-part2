@@ -2,6 +2,8 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
+import com.solvd.sciencelab.entities.City;
+import com.solvd.sciencelab.entities.LabSize;
 import com.solvd.sciencelab.entities.Laboratory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +26,9 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new Laboratory(rs.getString("name"), rs.getInt("exp_capacity"));
+            LabSize labSize = new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
+            City city = new City(rs.getString("city_name"));
+            return new Laboratory(rs.getString("name"), rs.getInt("exp_capacity"), labSize, city);
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
@@ -32,21 +36,21 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
         }
     }
 
-    public Laboratory selectByLabSizeId(long id) throws SQLException {
-        Connection c = cp.getConnection();
-        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id = ?";
-        try (PreparedStatement ps = c.prepareStatement(query)) {
-            ps.setLong(1, id);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            return new Laboratory(rs.getString("name"), rs.getInt("exp_capacity"));
-        } catch (SQLException e) {
-            throw new SQLException();
-        } finally {
-            cp.releaseConnection(c);
-        }
-
-    }
+//    public Laboratory selectByLabSizeId(long id) throws SQLException {
+//        Connection c = cp.getConnection();
+//        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id = ?";
+//        try (PreparedStatement ps = c.prepareStatement(query)) {
+//            ps.setLong(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            rs.next();
+//            return new Laboratory(rs.getString("name"), rs.getInt("exp_capacity"));
+//        } catch (SQLException e) {
+//            throw new SQLException();
+//        } finally {
+//            cp.releaseConnection(c);
+//        }
+//
+//    }
 
     @Override
     public List<Laboratory> selectAll() {
@@ -63,7 +67,7 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
             ps.setInt(3, laboratory.getLabsize().getLabSizeId());
             ps.setInt(4, laboratory.getCity().getCityId());
             ps.executeUpdate();
-            LOGGER.info("Laboratory: " + laboratory.getName() + " successfully stored into database.");
+            LOGGER.info("Laboratory successfully stored into database.");
         } catch (SQLException e) {
             throw new SQLException();
         } finally {

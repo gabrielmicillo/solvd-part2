@@ -97,7 +97,7 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
             ps.setString(1, lSize.getLabSize());
             ps.setInt(2, lSize.getSquareMeters());
             ps.executeUpdate();
-            LOGGER.info("Laboratory size: " + lSize + " successfully stored in database.");
+            LOGGER.info("Laboratory size successfully stored in database.");
         } catch (SQLException e) {
             throw new SQLException();
         } finally {

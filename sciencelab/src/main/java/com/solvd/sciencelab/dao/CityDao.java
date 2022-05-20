@@ -77,7 +77,7 @@ public class CityDao extends JDBCDao implements Dao<City> {
         try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, city.getCityName());
             ps.executeUpdate();
-            LOGGER.info("City: " + city + " successfully stored in database.");
+            LOGGER.info("City successfully stored in database.");
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
