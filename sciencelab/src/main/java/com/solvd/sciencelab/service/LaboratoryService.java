@@ -57,19 +57,18 @@ public class LaboratoryService {
                 .collect(Collectors.toList());
     }
 
-    public void newLaboratory(String labName, int expCapacity, int labIdLSModel, int labIdCityModel) throws SQLException {
-//        this method receives an example laboratory ID from a laboratory with the laboratory size and city that we want to add on the new register
-        try {
-            Laboratory laboratory = new Laboratory();
-            laboratory.setName(labName);
-            laboratory.setExpCapacity(expCapacity);
-            laboratory.setLabsize(labSizeDao.getByLaboratoryId(labIdLSModel));
-            laboratory.setCity(cityDao.getByLaboratoryId(labIdCityModel));
-            laboratoryDao.insert(laboratory);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void newLaboratory(Laboratory laboratory) throws SQLException {
+//        try {
+//            laboratory.setName(labName);
+//            laboratory.setExpCapacity(expCapacity);
+//            laboratory.setLabsize(labSizeDao.select(labIdLSModel));
+//            laboratory.setCity(cityDao.getByLaboratoryId(labIdCityModel));
+//            laboratoryDao.insert(laboratory);
+//            LOGGER.info(laboratory);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void changeLaboratoryById(Laboratory laboratory, int id) {
         laboratoryDao.update(laboratory, id);

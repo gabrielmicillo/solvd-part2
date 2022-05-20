@@ -3,6 +3,8 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.City;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CityDao extends JDBCDao implements Dao<City> {
+
+    private static final Logger LOGGER = LogManager.getLogger(CityDao.class);
     private final ConnectionPool cp = getCp();
 
     @Override
@@ -29,6 +33,22 @@ public class CityDao extends JDBCDao implements Dao<City> {
         }
     }
 
+    public int getIdByCityName(String cityName) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "Select * from Cities where city_name = ?";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setString(1, cityName);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt("id");
+            return id;
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
+    }
+
     public City getByLaboratoryId(int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Laboratories JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id=?";
@@ -36,7 +56,7 @@ public class CityDao extends JDBCDao implements Dao<City> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new City(rs.getInt("city_id"), rs.getString("city_name"));
+            return new City(rs.getString("city_name"));
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
@@ -51,7 +71,18 @@ public class CityDao extends JDBCDao implements Dao<City> {
 
     @Override
     public void insert(City city) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "INSERT INTO Cities (city_name) VALUES (?)";
 
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setString(1, city.getCityName());
+            ps.executeUpdate();
+            LOGGER.info("City: " + city + " successfully stored in database.");
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 
     @Override

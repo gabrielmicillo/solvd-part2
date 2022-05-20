@@ -19,7 +19,7 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
     @Override
     public Laboratory select(long id) throws SQLException {
         Connection c = cp.getConnection();
-        String query = "Select * from Laboratories where ID = ?";
+        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id = ?";
         try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();

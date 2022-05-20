@@ -14,12 +14,6 @@ public class LabSize {
         this.squareMeters = squareMeters;
     }
 
-    public LabSize(int labSizeId, String labSize, int squareMeters) {
-        this.labSizeId = labSizeId;
-        this.labSize = labSize;
-        this.squareMeters = squareMeters;
-    }
-
     public int getLabSizeId() {
         return labSizeId;
     }

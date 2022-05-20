@@ -18,11 +18,11 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
 
     private final ConnectionPool cp = getCp();
 
-    public LabSize select(long id) throws SQLException {
+    public LabSize select(int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Labs_Size where ID = ?";
         try (PreparedStatement ps = c.prepareStatement(query)) {
-            ps.setLong(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
             return new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
@@ -40,12 +40,33 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new LabSize(rs.getInt("labs_size_id"), rs.getString("lab_size"), rs.getInt("square_meters"));
+            return new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
         } catch (SQLException e) {
             throw new SQLException();
         } finally {
             cp.releaseConnection(c);
         }
+    }
+
+    public int getIdByLabSize(String labSize) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "Select * from Labs_Size where lab_size = ?";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setString(1, labSize);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt("id");
+            return id;
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
+    }
+
+    @Override
+    public LabSize select(long id) throws SQLException {
+        return null;
     }
 
     @Override

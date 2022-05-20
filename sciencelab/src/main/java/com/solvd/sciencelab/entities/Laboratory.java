@@ -9,10 +9,6 @@ public class Laboratory {
     public Laboratory() {
     }
 
-    public Laboratory(String name, int expCapacity) {
-        this.name = name;
-        this.expCapacity = expCapacity;
-    }
 
     public Laboratory(String name, int expCapacity, LabSize labsize, City city) {
         this.name = name;
