@@ -106,10 +106,35 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
     }
 
     @Override
-    public void update(LabSize lSize, int id) {
+    public void update(LabSize lSize, int id) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "UPDATE Labs_Size SET lab_size = ?, square_meters = ? where ID = ?";
+        try (PreparedStatement ps = c.prepareStatement(query);) {
+            ps.setString(1, lSize.getLabSize());
+            ps.setInt(2, lSize.getSquareMeters());
+            ps.setInt(3, id);
+            ps.executeUpdate();
+            LOGGER.info("Laboratory size was updated in the database.");
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 
     @Override
-    public void delete(LabSize lSize) {
+    public void delete(int id) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "DELETE FROM Labs_Size WHERE id = ?";
+
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            LOGGER.info("Laboratory size was deleted from database.");
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 }

@@ -51,9 +51,9 @@ public class ExperimentService {
         experimentDao.update(experiment, id);
     }
 
-    public void cancelExperiment(Experiment experiment) {
+    public void cancelExperiment(int id) {
         try {
-            experimentDao.delete(experiment);
+            experimentDao.delete(id);
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());
         }

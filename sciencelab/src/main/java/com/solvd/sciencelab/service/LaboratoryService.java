@@ -1,5 +1,7 @@
 package com.solvd.sciencelab.service;
 
+import com.solvd.sciencelab.conection.ConnectionPool;
+import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.dao.CityDao;
 import com.solvd.sciencelab.dao.LabSizeDao;
 import com.solvd.sciencelab.dao.LaboratoryDao;
@@ -9,13 +11,20 @@ import com.solvd.sciencelab.entities.Laboratory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LaboratoryService {
+
+
+public class LaboratoryService extends JDBCDao {
     private static Logger LOGGER = LogManager.getLogger(LaboratoryService.class);
+    private final ConnectionPool cp = getCp();
 
     LaboratoryDao laboratoryDao = new LaboratoryDao();
     LabSizeDao labSizeDao = new LabSizeDao();
@@ -47,15 +56,11 @@ public class LaboratoryService {
         return l;
     }
 
-    public List<Laboratory> getAllLaboratories() {
-        return laboratoryDao.selectAll();
-    }
-
-    public List<Laboratory> getAllLaboratoriesByExpCapacity() {
-        return laboratoryDao.selectAll().stream()
-                .sorted(Comparator.comparing(Laboratory::getExpCapacity))
-                .collect(Collectors.toList());
-    }
+//    public List<Laboratory> getAllLaboratoriesByExpCapacity() {
+//        return laboratoryDao.selectAll().stream()
+//                .sorted(Comparator.comparing(Laboratory::getExpCapacity))
+//                .collect(Collectors.toList());
+//    }
 
 //    public void newLaboratory(Laboratory laboratory) throws SQLException {
 //        try {
@@ -70,11 +75,11 @@ public class LaboratoryService {
 //        }
 //    }
 
-    public void changeLaboratoryById(Laboratory laboratory, int id) {
+    public void changeLaboratoryById(Laboratory laboratory, int id) throws SQLException {
         laboratoryDao.update(laboratory, id);
     }
 
-    public void destroyLaboratory(Laboratory laboratory) {
-        laboratoryDao.delete(laboratory);
+    public void destroyLaboratory(int id) {
+        laboratoryDao.delete(id);
     }
 }

@@ -34,7 +34,7 @@ public class OrderService {
     }
 
 
-    public void cancelOrder(Order order) {
-        orderDao.delete(order);
+    public void cancelOrder(int id) {
+        orderDao.delete(id);
     }
 }

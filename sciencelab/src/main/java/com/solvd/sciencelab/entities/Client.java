@@ -12,8 +12,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(int clientId, String firstName, String lastName) {
-        this.clientId = clientId;
+    public Client(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -45,8 +44,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "clientId=" + clientId +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }

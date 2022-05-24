@@ -3,6 +3,7 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.City;
+import com.solvd.sciencelab.entities.LabSize;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CityDao extends JDBCDao implements Dao<City> {
@@ -66,7 +68,21 @@ public class CityDao extends JDBCDao implements Dao<City> {
 
     @Override
     public List<City> selectAll() throws SQLException {
-        return null;
+        Connection c = cp.getConnection();
+        List<City> cities = new ArrayList<>();
+        String query = "Select * from Cities";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                City city = new City(rs.getString("city_name"));
+                cities.add(city);
+            }
+            return cities;
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 
     @Override
@@ -86,12 +102,35 @@ public class CityDao extends JDBCDao implements Dao<City> {
     }
 
     @Override
-    public void update(City city, int id) {
-
+    public void update(City city, int id) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "UPDATE Cities SET city_name = ? where ID = ?";
+        try (PreparedStatement ps = c.prepareStatement(query);) {
+            ps.setString(1, city.getCityName());
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            LOGGER.info("City was updated in the database.");
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 
-    @Override
-    public void delete(City city) throws SQLException {
 
+    @Override
+    public void delete(int id) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "DELETE FROM Cities WHERE id = ?";
+
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            LOGGER.info("City was deleted from database.");
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
     }
 }

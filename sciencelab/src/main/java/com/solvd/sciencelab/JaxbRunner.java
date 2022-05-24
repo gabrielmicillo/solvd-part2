@@ -55,11 +55,11 @@ public class JaxbRunner {
         try {
             FinishedWork works = new FinishedWork();
 
-            Client client = new Client(123, "Peter", "Gonzalez");
+            Client client = new Client("Peter", "Gonzalez");
             Order order = new Order(63, 36, client);
             works.orders.add(order);
 
-            Client anotherClient = new Client(126, "Antonio", "Cassano");
+            Client anotherClient = new Client("Antonio", "Cassano");
             Order anotherOrder = new Order(53, 45, anotherClient);
             works.orders.add(anotherOrder);
 

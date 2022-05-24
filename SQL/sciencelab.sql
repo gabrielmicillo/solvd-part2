@@ -168,8 +168,8 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Weekly_Shifts` (
   CONSTRAINT `fk_Laboratories_has_Employees_Laboratories1`
     FOREIGN KEY (`lab_id`)
     REFERENCES `gabriel_micillo`.`Laboratories` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Laboratories_has_Employees_Employees1`
     FOREIGN KEY (`employee_id`)
     REFERENCES `gabriel_micillo`.`Employees` (`id`)
@@ -185,8 +185,8 @@ CREATE TABLE IF NOT EXISTS `gabriel_micillo`.`Employees_Competences` (
   PRIMARY KEY (`experiment_types_id`, `employee_id`),
     FOREIGN KEY (`experiment_types_id`)
     REFERENCES `gabriel_micillo`.`Experiment_Types` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (`employee_id`)
     REFERENCES `gabriel_micillo`.`Employees` (`id`)
     ON DELETE CASCADE

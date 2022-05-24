@@ -64,13 +64,13 @@ public class ExperimentDao extends JDBCDao implements Dao<Experiment> {
     }
 
     @Override
-    public void delete(Experiment experiment) throws SQLException {
+    public void delete(int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Delete from Experiments where ID = ?";
 
         try (PreparedStatement ps = c.prepareStatement(query)) {
-            ps.setLong(1, experiment.getExperimentId());
-            LOGGER.info("Experiment: " + experiment.getExperimentId() + " was canceled and deleted.");
+            ps.setLong(1, id);
+            LOGGER.info("Experiment: was canceled and deleted.");
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException();

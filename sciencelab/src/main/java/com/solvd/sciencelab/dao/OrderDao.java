@@ -59,6 +59,6 @@ public class OrderDao extends JDBCDao implements Dao<Order> {
     }
 
     @Override
-    public void delete(Order order) {
+    public void delete(int id) {
     }
 }
