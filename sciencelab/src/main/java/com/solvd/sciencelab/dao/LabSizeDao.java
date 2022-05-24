@@ -18,11 +18,11 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
 
     private final ConnectionPool cp = getCp();
 
-    public LabSize select(int id) throws SQLException {
+    public LabSize select(long id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Labs_Size where ID = ?";
         try (PreparedStatement ps = c.prepareStatement(query)) {
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
             return new LabSize(rs.getString("lab_size"), rs.getInt("square_meters"));
@@ -65,11 +65,6 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
     }
 
     @Override
-    public LabSize select(long id) throws SQLException {
-        return null;
-    }
-
-    @Override
     public List<LabSize> selectAll() throws SQLException {
         Connection c = cp.getConnection();
         List<LabSize> labSizes = new ArrayList<>();
@@ -109,7 +104,7 @@ public class LabSizeDao extends JDBCDao implements Dao<LabSize> {
     public void update(LabSize lSize, int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "UPDATE Labs_Size SET lab_size = ?, square_meters = ? where ID = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, lSize.getLabSize());
             ps.setInt(2, lSize.getSquareMeters());
             ps.setInt(3, id);

@@ -2,7 +2,6 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
-import com.solvd.sciencelab.entities.City;
 import com.solvd.sciencelab.entities.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,7 +74,7 @@ public class ClientDao extends JDBCDao implements Dao<Client> {
     public void update(Client client, int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "UPDATE Clients SET first_name = ?, last_name = ? where ID = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, client.getFirstName());
             ps.setString(2, client.getLastName());
             ps.setInt(3, id);

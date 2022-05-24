@@ -3,7 +3,6 @@ package com.solvd.sciencelab.dao;
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
 import com.solvd.sciencelab.entities.City;
-import com.solvd.sciencelab.entities.LabSize;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -105,7 +104,7 @@ public class CityDao extends JDBCDao implements Dao<City> {
     public void update(City city, int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "UPDATE Cities SET city_name = ? where ID = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, city.getCityName());
             ps.setInt(2, id);
             ps.executeUpdate();

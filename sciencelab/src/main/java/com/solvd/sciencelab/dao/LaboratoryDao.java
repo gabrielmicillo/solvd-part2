@@ -58,22 +58,6 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
         }
     }
 
-//    public Laboratory selectByLabSizeId(long id) throws SQLException {
-//        Connection c = cp.getConnection();
-//        String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id = ?";
-//        try (PreparedStatement ps = c.prepareStatement(query)) {
-//            ps.setLong(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            rs.next();
-//            return new Laboratory(rs.getString("name"), rs.getInt("exp_capacity"));
-//        } catch (SQLException e) {
-//            throw new SQLException();
-//        } finally {
-//            cp.releaseConnection(c);
-//        }
-//
-//    }
-
     @Override
     public void insert(Laboratory laboratory) throws SQLException {
         Connection c = cp.getConnection();
@@ -96,7 +80,7 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
     public void update(Laboratory laboratory, int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "UPDATE Laboratories SET name = ?, exp_capacity = ?, labs_size_id = ?, city_id = ? where ID = ?";
-        try (PreparedStatement ps = c.prepareStatement(query);) {
+        try (PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, laboratory.getName());
             ps.setInt(2, laboratory.getExpCapacity());
             ps.setInt(3, laboratory.getLabsize().getLabSizeId());
