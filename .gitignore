@@ -1,5 +1,6 @@
 .idea
 JAXBemployees.xml
-JAXBorders.xml
+JAXBlabs.xml
 logs
 target
+JsonLabOutput.json
