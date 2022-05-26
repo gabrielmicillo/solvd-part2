@@ -1,9 +1,16 @@
 package com.solvd.sciencelab.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder = {"labSizeId", "labSize", "squareMeters"})
 public class LabSize {
 
+    @JsonProperty
     private int labSizeId;
+    @JsonProperty
     private String labSize;
+    @JsonProperty
     private int squareMeters;
 
     public LabSize() {

@@ -1,8 +1,14 @@
 package com.solvd.sciencelab.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder = {"cityId", "cityName"})
 public class City {
 
+    @JsonProperty
     private int cityId;
+    @JsonProperty
     private String cityName;
 
     public City() {

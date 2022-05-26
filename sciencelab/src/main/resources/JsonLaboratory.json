@@ -1,0 +1,11 @@
+{
+  "name":"Guemes",
+  "experiment capacity":63,
+  "laboratory size":{
+    "labSize":"Enormous",
+    "squareMeters":1500
+    },
+  "city":{
+    "cityName":"Washington"
+    }
+}

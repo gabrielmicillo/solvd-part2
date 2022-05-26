@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<human>
+<laboratory>
     <employee>
         <employeeId>3</employeeId>
         <lastName>Gamez</lastName>
@@ -10,4 +10,4 @@
         <lastName>Garcia</lastName>
         <firstName>Rodrigo</firstName>
     </employee>
-</human>
+</laboratory>

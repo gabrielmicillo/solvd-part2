@@ -1,12 +1,16 @@
 package com.solvd.sciencelab.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"employeeId", "lastName", "firstName"})
 public class Employee {
 
+    @JsonProperty
     private int employeeId;
+    @JsonProperty
     private String firstName;
+    @JsonProperty
     private String lastName;
 //    private Position position;
 //    private List<Experiment> experiment;
@@ -44,7 +48,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
-//    public Position getPosition() {
+    //    public Position getPosition() {
 //        return position;
 //    }
 //
