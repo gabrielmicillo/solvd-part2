@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sciencelab.dao.Dao">
+   <resultMap id="ClientResultMap" type="com.solvd.sciencelab.entities.Client" autoMapping="false">
+      <result column="id" property="clientId" />
+      <result column="first_name" property="firstName" />
+      <result column="last_name" property="lastName" />
+   </resultMap>
+   <select id="select" parameterType="Long" resultMap="ClientResultMap">
+		Select * from Clients where id =#{id}
+   </select>
+   <select id="selectAll" resultMap="ClientResultMap">
+		Select * from Clients
+   </select>
+   <delete id="delete">
+		Delete from Clients where id = #{id}
+   </delete>
+   <insert id="insert">
+		Insert into Clients (first_name,last_name)
+  		Values (#{first_name},#{last_name})
+   </insert>
+   <update id="update">
+		Update Clients set
+    	first_name = #{first_name},
+    	last_name = #{last_name}
+ 		where id = #{id}
+   </update>
+</mapper>
