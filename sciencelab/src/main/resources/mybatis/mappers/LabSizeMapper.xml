@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sciencelab.dao.ILabSizeDao">
+   <resultMap id="LabSizeResultMap" type="com.solvd.sciencelab.entities.LabSize" autoMapping="false">
+      <result column="id" property="labSizeId" />
+      <result column="lab_size" property="labSize" />
+      <result column="square_meters" property="squareMeters" />
+   </resultMap>
+   <select id="select" parameterType="Long" resultMap="LabSizeResultMap">
+		Select * from Labs_Size where id =#{id}
+   </select>
+   <select id="selectAll" resultMap="LabSizeResultMap">
+		Select * from Labs_Size
+   </select>
+   <delete id="delete">
+		Delete from Labs_Size where id = #{id}
+   </delete>
+   <insert id="insert">
+		Insert into Labs_Size (lab_size,square_meters)
+  		Values (#{lab_size},#{square_meters})
+   </insert>
+   <update id="update">
+		Update Labs_Size set
+        lab_size = #{lab_size},
+        square_meters = #{square_meters}
+ 		where id = #{id}
+   </update>
+</mapper>

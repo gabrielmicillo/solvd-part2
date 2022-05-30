@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sciencelab.dao.ICityDao">
+   <resultMap id="CityResultMap" type="com.solvd.sciencelab.entities.City" autoMapping="false">
+      <result column="id" property="cityId" />
+      <result column="city_name" property="cityName" />
+   </resultMap>
+   <select id="select" parameterType="Long" resultMap="CityResultMap">
+		Select * from Cities where id =#{id}
+   </select>
+   <select id="selectAll" resultMap="CityResultMap">
+		Select * from Cities
+   </select>
+   <delete id="delete">
+		Delete from Cities where id = #{id}
+   </delete>
+   <insert id="insert">
+		Insert into Cities (city_name)
+  		Values (#{city_name})
+   </insert>
+   <update id="update">
+		Update Cities set
+        city_name = #{city_name}
+ 		where id = #{id}
+   </update>
+</mapper>

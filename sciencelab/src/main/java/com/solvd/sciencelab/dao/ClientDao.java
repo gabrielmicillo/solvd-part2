@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientDao extends JDBCDao implements Dao<Client> {
+public class ClientDao extends JDBCDao implements IClientDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ClientDao.class);
     private final ConnectionPool cp = getCp();
@@ -101,5 +101,15 @@ public class ClientDao extends JDBCDao implements Dao<Client> {
         } finally {
             cp.releaseConnection(c);
         }
+    }
+
+    @Override
+    public void insert(String firstName, String lastName) throws SQLException {
+//
+    }
+
+    @Override
+    public void update(String firstName, String lastName, int id) throws SQLException {
+//
     }
 }

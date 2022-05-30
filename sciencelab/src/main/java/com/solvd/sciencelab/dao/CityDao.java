@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityDao extends JDBCDao implements Dao<City> {
+public class CityDao extends JDBCDao implements ICityDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CityDao.class);
     private final ConnectionPool cp = getCp();
@@ -131,5 +131,15 @@ public class CityDao extends JDBCDao implements Dao<City> {
         } finally {
             cp.releaseConnection(c);
         }
+    }
+
+    @Override
+    public void insert(String cityName) throws SQLException {
+
+    }
+
+    @Override
+    public void update(String cityName, int id) throws SQLException {
+
     }
 }
