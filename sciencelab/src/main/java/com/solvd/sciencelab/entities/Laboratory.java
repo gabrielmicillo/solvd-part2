@@ -10,6 +10,10 @@ import java.util.List;
 @XmlRootElement
 @XmlType(propOrder = {"name", "expCapacity", "labsize", "city", "employees"})
 public class Laboratory {
+
+    private int laboratoryId;
+    private int labSizeId;
+    private int cityId;
     @JsonProperty
     private String name;
     @JsonProperty("experiment capacity")
@@ -77,6 +81,30 @@ public class Laboratory {
     @XmlElement(name = "employee")
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public int getLaboratoryId() {
+        return laboratoryId;
+    }
+
+    public void setLaboratoryId(int laboratoryId) {
+        this.laboratoryId = laboratoryId;
+    }
+
+    public int getLabSizeId() {
+        return labSizeId;
+    }
+
+    public void setLabSizeId(int labSizeId) {
+        this.labSizeId = labSizeId;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
     @Override

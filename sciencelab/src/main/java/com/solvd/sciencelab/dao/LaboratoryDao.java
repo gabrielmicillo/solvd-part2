@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
+public class LaboratoryDao extends JDBCDao implements ILaboratoryDao {
     private static final Logger LOGGER = LogManager.getLogger(LaboratoryDao.class);
     private final ConnectionPool cp = getCp();
 
@@ -109,5 +109,15 @@ public class LaboratoryDao extends JDBCDao implements Dao<Laboratory> {
         } finally {
             cp.releaseConnection(c);
         }
+    }
+
+    @Override
+    public Laboratory selectByName(String name) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void insert(String name, int expCapacity, int labSizeId, int cityId) throws SQLException {
+
     }
 }

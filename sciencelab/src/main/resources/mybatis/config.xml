@@ -17,5 +17,6 @@
       <mapper resource="mybatis/mappers/ClientMapper.xml" />
       <mapper resource="mybatis/mappers/LabSizeMapper.xml" />
       <mapper resource="mybatis/mappers/CityMapper.xml" />
+      <mapper resource="mybatis/mappers/LaboratoryMapper.xml" />
    </mappers>
 </configuration>

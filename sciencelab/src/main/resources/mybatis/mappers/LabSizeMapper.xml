@@ -9,6 +9,9 @@
    <select id="select" parameterType="Long" resultMap="LabSizeResultMap">
 		Select * from Labs_Size where id =#{id}
    </select>
+    <select id="selectByName" parameterType="String" resultMap="LabSizeResultMap">
+        Select * from Labs_Size where lab_size =#{lab_size}
+    </select>
    <select id="selectAll" resultMap="LabSizeResultMap">
 		Select * from Labs_Size
    </select>

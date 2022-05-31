@@ -8,6 +8,9 @@
    <select id="select" parameterType="Long" resultMap="CityResultMap">
 		Select * from Cities where id =#{id}
    </select>
+    <select id="selectByName" parameterType="String" resultMap="CityResultMap">
+        Select * from Cities where city_name =#{city_name}
+    </select>
    <select id="selectAll" resultMap="CityResultMap">
 		Select * from Cities
    </select>

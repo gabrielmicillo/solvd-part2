@@ -134,6 +134,11 @@ public class LabSizeDao extends JDBCDao implements ILabSizeDao {
     }
 
     @Override
+    public LabSize selectByName(String labSizeName) throws SQLException {
+        return null;
+    }
+
+    @Override
     public void insert(String labSize, int squareMeters) throws SQLException {
 
     }

@@ -134,6 +134,11 @@ public class CityDao extends JDBCDao implements ICityDao {
     }
 
     @Override
+    public City selectByName(String cityName) throws SQLException {
+        return null;
+    }
+
+    @Override
     public void insert(String cityName) throws SQLException {
 
     }

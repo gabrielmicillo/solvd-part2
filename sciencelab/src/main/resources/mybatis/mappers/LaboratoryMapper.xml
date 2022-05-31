@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.sciencelab.dao.ILaboratoryDao">
+   <resultMap id="LaboratoryResultMap" type="com.solvd.sciencelab.entities.Laboratory" autoMapping="false">
+      <result column="id" property="laboratoryId" />
+      <result column="name" property="name" />
+      <result column="exp_capacity" property="expCapacity" />
+      <result column="labs_size_id" property="labSizeId" />
+      <result column="city_id" property="cityId" />
+   </resultMap>
+   <select id="select" parameterType="Long" resultMap="LaboratoryResultMap">
+		Select * from Laboratories where id =#{id}
+   </select>
+    <select id="selectByName" parameterType="String" resultMap="LaboratoryResultMap">
+        Select * from Laboratories where name =#{name}
+    </select>
+   <select id="selectAll" resultMap="LaboratoryResultMap">
+		Select * from Laboratories
+   </select>
+   <delete id="delete">
+		Delete from Laboratories where id = #{id}
+   </delete>
+   <insert id="insert">
+		Insert into Laboratories (name, exp_capacity, labs_size_id, city_id)
+  		Values (#{name},#{exp_capacity},#{labs_size_id},#{city_id})
+   </insert>
+   <update id="update">
+		Update Laboratories set
+        name = #{name},
+        exp_capacity = #{exp_capacity},
+        labs_size_id = #{labs_size_id},
+        city_id = #{city_id}
+ 		where id = #{id}
+   </update>
+</mapper>
