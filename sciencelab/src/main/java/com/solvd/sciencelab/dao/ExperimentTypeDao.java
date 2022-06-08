@@ -2,7 +2,6 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
-import com.solvd.sciencelab.entities.Client;
 import com.solvd.sciencelab.entities.ExperimentType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

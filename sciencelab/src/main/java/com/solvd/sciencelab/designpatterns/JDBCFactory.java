@@ -2,7 +2,6 @@ package com.solvd.sciencelab.designpatterns;
 
 import com.solvd.sciencelab.dao.*;
 import com.solvd.sciencelab.entities.*;
-import com.solvd.sciencelab.service.LaboratoryService;
 
 public class JDBCFactory extends AbstractFactory {
     public static IDao<?> chooseDao(String dao) {

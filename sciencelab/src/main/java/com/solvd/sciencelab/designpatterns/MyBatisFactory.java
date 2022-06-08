@@ -10,8 +10,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 public class MyBatisFactory extends AbstractFactory {
-    private static SqlSessionFactory sessionFactory = SqlSessionFactoryUtil.getInstance();
+    private static final SqlSessionFactory sessionFactory = SqlSessionFactoryUtil.getInstance();
     private static SqlSession sqlSession = sessionFactory.openSession();
+
+    public static SqlSession getSqlSession() {
+        return sqlSession;
+    }
+
+    public void setSqlSession(SqlSession sqlSession) {
+        MyBatisFactory.sqlSession = sqlSession;
+    }
 
     public IDao<?> chooseMapper(String mapper) {
         mapper = mapper.toLowerCase();
@@ -30,14 +38,6 @@ public class MyBatisFactory extends AbstractFactory {
                 return labSizeMapper;
         }
         return null;
-    }
-
-    public static SqlSession getSqlSession() {
-        return sqlSession;
-    }
-
-    public void setSqlSession(SqlSession sqlSession) {
-        MyBatisFactory.sqlSession = sqlSession;
     }
 
 }

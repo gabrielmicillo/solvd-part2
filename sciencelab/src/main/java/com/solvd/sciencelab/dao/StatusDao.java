@@ -2,7 +2,6 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
-import com.solvd.sciencelab.entities.Client;
 import com.solvd.sciencelab.entities.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +18,7 @@ public class StatusDao extends JDBCDao implements IStatusDao {
     private static final Logger LOGGER = LogManager.getLogger(StatusDao.class);
 
     private final ConnectionPool cp = getCp();
+
     @Override
     public Status select(long id) throws SQLException {
         Connection c = cp.getConnection();

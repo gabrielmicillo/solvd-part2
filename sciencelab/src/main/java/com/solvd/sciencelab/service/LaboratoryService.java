@@ -2,7 +2,9 @@ package com.solvd.sciencelab.service;
 
 import com.solvd.sciencelab.conection.ConnectionPool;
 import com.solvd.sciencelab.conection.JDBCDao;
-import com.solvd.sciencelab.dao.*;
+import com.solvd.sciencelab.dao.ICityDao;
+import com.solvd.sciencelab.dao.ILabSizeDao;
+import com.solvd.sciencelab.dao.ILaboratoryDao;
 import com.solvd.sciencelab.designpatterns.JDBCFactory;
 import com.solvd.sciencelab.entities.City;
 import com.solvd.sciencelab.entities.LabSize;
@@ -26,11 +28,11 @@ public class LaboratoryService extends JDBCDao {
     private static final Logger LOGGER = LogManager.getLogger(LaboratoryService.class);
     private final ConnectionPool cp = getCp();
 
-    private ILaboratoryDao laboratoryDao = (ILaboratoryDao) JDBCFactory.chooseDao("laboratory");
+    private final ILaboratoryDao laboratoryDao = (ILaboratoryDao) JDBCFactory.chooseDao("laboratory");
 
-    private ILabSizeDao labSizeDao = (ILabSizeDao) JDBCFactory.chooseDao("labsize");
+    private final ILabSizeDao labSizeDao = (ILabSizeDao) JDBCFactory.chooseDao("labsize");
 
-    private ICityDao cityDao = (ICityDao) JDBCFactory.chooseDao("city");
+    private final ICityDao cityDao = (ICityDao) JDBCFactory.chooseDao("city");
 
 
     public List<Laboratory> getAllLabsByExpCapacity() throws SQLException {

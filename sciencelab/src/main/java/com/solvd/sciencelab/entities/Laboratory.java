@@ -15,7 +15,7 @@ import java.util.List;
 @JsonPropertyOrder({"name", "expCapacity", "labsize", "city", "employees"})
 public class Laboratory {
 
-//    labSizeId and cityId just for MyBatis purposes only
+    //    labSizeId and cityId just for MyBatis purposes only
     @JsonIgnore
     private int laboratoryId;
     @JsonIgnore

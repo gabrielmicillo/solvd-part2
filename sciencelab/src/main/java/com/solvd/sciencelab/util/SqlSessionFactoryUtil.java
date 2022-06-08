@@ -11,8 +11,9 @@ import java.io.Reader;
 
 public class SqlSessionFactoryUtil {
     private static final Logger LOGGER = LogManager.getLogger(SqlSessionFactoryUtil.class);
-    private static SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+    private static final SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
     private static Reader reader;
+    private static SqlSessionFactory INSTANCE = null;
 
     static {
         try {
@@ -22,8 +23,6 @@ public class SqlSessionFactoryUtil {
             LOGGER.info(e.getMessage());
         }
     }
-
-    private static SqlSessionFactory INSTANCE = null;
 
     private SqlSessionFactoryUtil() {
     }

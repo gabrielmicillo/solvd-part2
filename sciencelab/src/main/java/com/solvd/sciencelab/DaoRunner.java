@@ -7,7 +7,6 @@ import com.solvd.sciencelab.dao.LaboratoryDao;
 import com.solvd.sciencelab.entities.City;
 import com.solvd.sciencelab.entities.Client;
 import com.solvd.sciencelab.entities.LabSize;
-import com.solvd.sciencelab.entities.Laboratory;
 import com.solvd.sciencelab.service.LaboratoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

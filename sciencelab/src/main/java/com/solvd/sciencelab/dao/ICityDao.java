@@ -2,7 +2,6 @@ package com.solvd.sciencelab.dao;
 
 import com.solvd.sciencelab.entities.City;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 
