@@ -60,6 +60,18 @@ FROM Experiments
 RIGHT JOIN Financiations
 ON Experiments.financiations_id = Financiations.id;
 
+SELECT * FROM Orders
+JOIN Experiments ON Orders.experiment_id = Experiments.id
+JOIN Experiment_Types ON Experiments.experiment_types_id = Experiment_Types.id
+JOIN Financiations ON Experiments.financiations_id = Financiations.id
+JOIN Laboratories ON Experiments.lab_id = Laboratories.id
+JOIN Labs_Size ON Laboratories.labs_size_id = Labs_Size.id
+JOIN Cities ON Laboratories.city_id = Cities.id
+JOIN Clients ON Orders.client_id = Clients.id
+JOIN Phone_Numbers ON Laboratories.id = Phone_Numbers.lab_id
+JOIN Employees ON Experiments.id = Employees.experiment_id
+JOIN Positions ON Employees.position_id = Positions.id; 
+
 SELECT AVG(cost_per_hour), id	
 FROM Experiment_Types GROUP BY id;
 
