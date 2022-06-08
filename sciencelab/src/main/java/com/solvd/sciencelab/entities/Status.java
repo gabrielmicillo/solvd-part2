@@ -1,6 +1,8 @@
 package com.solvd.sciencelab.entities;
 
 public class Status {
+
+    private int statusId;
     private String expStatus;
 
     public Status() {
@@ -8,6 +10,14 @@ public class Status {
 
     public Status(String expStatus) {
         this.expStatus = expStatus;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public String getExpStatus() {

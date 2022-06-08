@@ -34,6 +34,7 @@ public class CityDao extends JDBCDao implements ICityDao {
         }
     }
 
+    @Override
     public int getIdByCityName(String cityName) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Cities where city_name = ?";
@@ -50,6 +51,7 @@ public class CityDao extends JDBCDao implements ICityDao {
         }
     }
 
+    @Override
     public City getByLaboratoryId(int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Laboratories JOIN Cities on Laboratories.city_id=Cities.id where Laboratories.id=?";

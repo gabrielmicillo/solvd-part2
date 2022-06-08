@@ -56,12 +56,7 @@ public class DaoRunner {
 
 //        Updating a row in laboratory table
         LOGGER.info(laboratoryDao.selectAll());
-        LabSize ls = new LabSize();
-        labSize.setLabSizeId(1);
-        City c = new City();
-        city.setCityId(1);
-        Laboratory laboratory = new Laboratory("National Lab", 78, ls, c);
-        laboratoryDao.update(laboratory, 1);
+        laboratoryService.updateLaboratory("Departamental", 870, "Perrando", "Medium", "Chicago");
         LOGGER.info(laboratoryDao.selectAll());
 
 //        Deleting a row in city table
@@ -69,19 +64,15 @@ public class DaoRunner {
         cityDao.delete(1);
         LOGGER.info(cityDao.selectAll());
 
-//        Sorting laboratories by experiment capacity
+////        Sorting laboratories by experiment capacity
         LOGGER.info(laboratoryService.getAllLabsByExpCapacity());
 
-
-//        Inserting a new laboratory (populating it first)
-        City cit = new City("Machagai");
-        cityDao.insert(cit);
-        cit.setCityId(cityDao.getIdByCityName(cit.getCityName()));
-        LabSize lSize = new LabSize("diminute", 2);
-        labSizeDao.insert(lSize);
-        lSize.setLabSizeId(labSizeDao.getIdByLabSize(lSize.getLabSize()));
-        Laboratory lab = new Laboratory("Frangioli", 4, lSize, cit);
-        laboratoryDao.insert(lab);
+////        Inserting a new laboratory (populating it first)
+        laboratoryService.newLabWithNewSizeAndCity("Frangioli", 43, "Diminute", 60, "Machagai");
+        laboratoryService.newLabWithExistingSizeAndCity("Municipal", 78, "Big", "Rosario");
         LOGGER.info(laboratoryDao.selectAll());
+
+//        Filtering laboratories
+        LOGGER.info(laboratoryService.retrieveLabsByExperimentCapacity(100));
     }
 }

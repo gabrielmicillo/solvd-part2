@@ -6,7 +6,11 @@ import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
 
-public interface ICityDao extends Dao<City> {
+public interface ICityDao extends IDao<City> {
+
+    int getIdByCityName(String cityName) throws SQLException;
+
+    City getByLaboratoryId(int id) throws SQLException;
 
     City selectByName(String cityName) throws SQLException;
 

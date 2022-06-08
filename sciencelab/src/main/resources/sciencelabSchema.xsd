@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="order">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hoursRequired" type="xs:integer" />
+                <xs:element name="experiments">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="experiment" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="testTubeUsage" type="xs:integer" />
+                                        <xs:element name="status">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="experimentStatus" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="statusId" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="experimentType">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="typeName" type="xs:string" />
+                                                    <xs:element name="costPerHour" type="xs:integer" />
+                                                </xs:sequence>
+                                                <xs:attribute name="experimentTypeId" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="financiation">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="financiationOrigin" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="financiationId" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="employees">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="employee" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="firstName" type="xs:string" />
+                                                                <xs:element name="lastName" type="xs:string" />
+                                                                <xs:element name="position">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="positionName" type="xs:string"/>
+                                                                        </xs:sequence>
+                                                                        <xs:attribute name="positionId" type="xs:integer" use="required" />
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="empoyeeId" type="xs:integer" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="laboratory">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="laboratoryName" type="xs:string" />
+                                                    <xs:element name="experimentCapacity" type="xs:integer" />
+                                                    <xs:element name="phoneNumber">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="phoneNumber" type="xs:string" />
+                                                            </xs:sequence>
+                                                            <xs:attribute name="phoneNumberId" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="laboratorySize">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="laboratorySize" type="xs:string" />
+                                                                <xs:element name="squareMeters" type="xs:integer" />
+                                                            </xs:sequence>
+                                                            <xs:attribute name="laboratorySizeId" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="city">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="cityName" type="xs:string" />
+                                                            </xs:sequence>
+                                                            <xs:attribute name="cityId" use="required" />
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="laboratoryId" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="experimentId" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="client">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="firstName" type="xs:string" />
+                            <xs:element name="lastName" type="xs:string" />
+                        </xs:sequence>
+                        <xs:attribute name="clientId" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="orderId" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

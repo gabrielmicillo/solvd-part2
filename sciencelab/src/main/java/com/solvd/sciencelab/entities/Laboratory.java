@@ -1,18 +1,26 @@
 package com.solvd.sciencelab.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 
 import java.util.List;
 
 @XmlRootElement
 @XmlType(propOrder = {"name", "expCapacity", "labsize", "city", "employees"})
+@JsonPropertyOrder({"name", "expCapacity", "labsize", "city", "employees"})
 public class Laboratory {
 
+//    labSizeId and cityId just for MyBatis purposes only
+    @JsonIgnore
     private int laboratoryId;
+    @JsonIgnore
     private int labSizeId;
+    @JsonIgnore
     private int cityId;
     @JsonProperty
     private String name;
@@ -83,6 +91,7 @@ public class Laboratory {
         this.employees = employees;
     }
 
+    @XmlTransient
     public int getLaboratoryId() {
         return laboratoryId;
     }
@@ -91,6 +100,7 @@ public class Laboratory {
         this.laboratoryId = laboratoryId;
     }
 
+    @XmlTransient
     public int getLabSizeId() {
         return labSizeId;
     }
@@ -99,6 +109,7 @@ public class Laboratory {
         this.labSizeId = labSizeId;
     }
 
+    @XmlTransient
     public int getCityId() {
         return cityId;
     }

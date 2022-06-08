@@ -38,6 +38,23 @@ public class LaboratoryDao extends JDBCDao implements ILaboratoryDao {
     }
 
     @Override
+    public int getIdByLabName(String labName) throws SQLException {
+        Connection c = cp.getConnection();
+        String query = "Select * from Laboratories where name = ?";
+        try (PreparedStatement ps = c.prepareStatement(query)) {
+            ps.setString(1, labName);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int id = rs.getInt("id");
+            return id;
+        } catch (SQLException e) {
+            throw new SQLException();
+        } finally {
+            cp.releaseConnection(c);
+        }
+    }
+
+    @Override
     public List<Laboratory> selectAll() throws SQLException {
         Connection c = cp.getConnection();
         List<Laboratory> laboratories = new ArrayList<>();

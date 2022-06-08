@@ -1,6 +1,8 @@
 package com.solvd.sciencelab;
 
 import com.solvd.sciencelab.dao.*;
+import com.solvd.sciencelab.designpatterns.AbstractFactory;
+import com.solvd.sciencelab.designpatterns.MyBatisFactory;
 import com.solvd.sciencelab.entities.City;
 import com.solvd.sciencelab.entities.Client;
 import com.solvd.sciencelab.entities.LabSize;
@@ -18,11 +20,11 @@ public class MyBatisRunner {
 
     private static final Logger LOGGER = LogManager.getLogger(MyBatisRunner.class);
 
-    private static SqlSessionFactory factory = SqlSessionFactoryUtil.getInstance();
+    static MyBatisFactory myBatisFactory = (MyBatisFactory) AbstractFactory.chooseFactory("mybatis");
 
     public static void main(String[] args) throws SQLException {
-        try (SqlSession session = factory.openSession()) {
-            IClientDao clientMapper = session.getMapper(IClientDao.class);
+        try (SqlSession session = MyBatisFactory.getSqlSession()) {
+            IClientDao clientMapper = (IClientDao) myBatisFactory.chooseMapper("client");
             LOGGER.info("------CLIENTS------");
             Client client = clientMapper.select(1);
             LOGGER.info("Client = " + client);
@@ -33,7 +35,7 @@ public class MyBatisRunner {
             List<Client> clientList = clientMapper.selectAll();
             LOGGER.info(clientList);
 
-            ILabSizeDao labSizeMapper = session.getMapper(ILabSizeDao.class);
+            ILabSizeDao labSizeMapper = (ILabSizeDao) myBatisFactory.chooseMapper("labsize");
             LOGGER.info("------LABORATORY SIZES------");
             LabSize labSize = labSizeMapper.select(1);
             labSize = labSizeMapper.selectByName("Medium");
@@ -46,7 +48,7 @@ public class MyBatisRunner {
             List<LabSize> labSizeList = labSizeMapper.selectAll();
             LOGGER.info(labSizeList);
 
-            ICityDao cityMapper = session.getMapper(ICityDao.class);
+            ICityDao cityMapper = (ICityDao) myBatisFactory.chooseMapper("city");
             LOGGER.info("------CITIES------");
             City city = cityMapper.select(1);
             LOGGER.info("City = " + city);
@@ -61,7 +63,7 @@ public class MyBatisRunner {
             LOGGER.info(cities);
 
 //            Reading existing laboratory
-            ILaboratoryDao laboratoryMapper = session.getMapper(ILaboratoryDao.class);
+            ILaboratoryDao laboratoryMapper = (ILaboratoryDao) myBatisFactory.chooseMapper("laboratory");
             LOGGER.info("------LABORATORIES------");
             Laboratory laboratory = laboratoryMapper.select(1);
             laboratory.setCity(cityMapper.select(laboratory.getCityId()));

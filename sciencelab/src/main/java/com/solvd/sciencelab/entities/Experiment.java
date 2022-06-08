@@ -11,8 +11,12 @@ public class Experiment {
     public Experiment() {
     }
 
-    public Experiment(int testTubeUsage) {
+    public Experiment(int testTubeUsage, Status status, ExperimentType experimentType, Financiation financiation, Laboratory laboratory) {
         this.testTubeUsage = testTubeUsage;
+        this.status = status;
+        this.experimentType = experimentType;
+        this.financiation = financiation;
+        this.laboratory = laboratory;
     }
 
     public long getExperimentId() {

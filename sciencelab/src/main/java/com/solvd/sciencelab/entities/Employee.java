@@ -12,8 +12,6 @@ public class Employee {
     private String firstName;
     @JsonProperty
     private String lastName;
-//    private Position position;
-//    private List<Experiment> experiment;
 
     public Employee() {
     }
@@ -47,24 +45,6 @@ public class Employee {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    //    public Position getPosition() {
-//        return position;
-//    }
-//
-//    public void setPosition(Position position) {
-//        this.position = position;
-//    }
-//
-//    public List<Experiment> getExperiment() {
-//        return experiment;
-//    }
-//
-//    public void setExperiment(List<Experiment> experiment) {
-//        this.experiment = experiment;
-//    }
-
-//
 
     @Override
     public String toString() {

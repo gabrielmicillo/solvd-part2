@@ -3,7 +3,7 @@ package com.solvd.sciencelab.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface Dao<T> {
+public interface IDao<T> {
 
     T select(long id) throws SQLException;
 

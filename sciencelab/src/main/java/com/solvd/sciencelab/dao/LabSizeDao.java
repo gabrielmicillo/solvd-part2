@@ -18,6 +18,7 @@ public class LabSizeDao extends JDBCDao implements ILabSizeDao {
 
     private final ConnectionPool cp = getCp();
 
+    @Override
     public LabSize select(long id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Labs_Size where ID = ?";
@@ -33,6 +34,7 @@ public class LabSizeDao extends JDBCDao implements ILabSizeDao {
         }
     }
 
+    @Override
     public LabSize getByLaboratoryId(int id) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Laboratories JOIN Labs_Size on Laboratories.labs_size_id=Labs_Size.id where Laboratories.id=?";
@@ -48,6 +50,7 @@ public class LabSizeDao extends JDBCDao implements ILabSizeDao {
         }
     }
 
+    @Override
     public int getIdByLabSize(String labSize) throws SQLException {
         Connection c = cp.getConnection();
         String query = "Select * from Labs_Size where lab_size = ?";

@@ -16,7 +16,7 @@ public class JaxbRunner {
     private static final Logger LOGGER = LogManager.getLogger(JaxbRunner.class);
 
     public static void main(String[] args) {
-//        createLabXML();
+        createLabXML();
         readXML();
     }
 
