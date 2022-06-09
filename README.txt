@@ -31,8 +31,8 @@ this table specifies the status of the experiment: not started / on process / fi
 PHONE NUMBERS
 this table specifies the phone number of the laboratory and takes the laboratory id as foreign key
 
-COSTS
-this table specifies the cost per hour of the experiment depending on the type of it
+CLIENTS
+this table specifies the name of the lab's clients
 
 ORDERS
 this table specifies the amount of hours required for the experiment and takes the cost of it as foreign key
